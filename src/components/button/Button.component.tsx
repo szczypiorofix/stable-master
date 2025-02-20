@@ -1,4 +1,4 @@
-import { CSSProperties, PropsWithChildren } from 'react';
+import { CSSProperties, JSX, PropsWithChildren } from 'react';
 import { Button as ButtonMaterialUI } from '@mui/material';
 
 type ButtonProps = PropsWithChildren<{
@@ -7,12 +7,12 @@ type ButtonProps = PropsWithChildren<{
     size: 'xs' | 'sm' | 'md' | 'lg';
 }>;
 
-export const Button = ({
+export function Button({
     children,
     onClick,
     variant = 'contained',
     size = 'md',
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element {
     const sizeStyles: Record<ButtonProps['size'], CSSProperties> = {
         xs: {
             padding: '0.25rem',
@@ -37,4 +37,4 @@ export const Button = ({
             {children}
         </ButtonMaterialUI>
     );
-};
+}
