@@ -29,13 +29,7 @@ export const ButtonComponent = ({
     };
 
     return (
-        <Button
-            variant={variant}
-            style={{
-                ...sizeStyles[size],
-            }}
-            onClick={onClick}
-        >
+        <Button variant={variant} style={sizeStyles[size]} onClick={onClick}>
             {children}
         </Button>
     );
