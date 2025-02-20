@@ -1,26 +1,26 @@
 import { screen, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { ButtonComponent } from './Button.component.tsx';
+import { Button } from './Button.component.tsx';
 
 describe('ButtonComponent', () => {
     it('renders button element', () => {
         render(
-            <ButtonComponent size={'sm'} variant={'primary'}>
+            <Button size={'sm'} variant={'contained'}>
                 Click me
-            </ButtonComponent>
+            </Button>
         );
         expect(
-            screen.getByRole('button', { name: /Hello/i })
+            screen.getByRole('button', { name: /Click me/i })
         ).toBeInTheDocument();
     });
 
     it('renders enabled button', () => {
         render(
-            <ButtonComponent size={'sm'} variant={'primary'}>
+            <Button size={'sm'} variant={'contained'}>
                 Click me
-            </ButtonComponent>
+            </Button>
         );
-        const loginBtn = screen.getByRole('button', { name: /Hello/i });
+        const loginBtn = screen.getByRole('button', { name: /Click me/i });
         expect(loginBtn).toBeInTheDocument();
         expect(loginBtn).not.toBeDisabled();
     });

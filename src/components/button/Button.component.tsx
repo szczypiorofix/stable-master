@@ -1,5 +1,5 @@
 import { CSSProperties, PropsWithChildren } from 'react';
-import { Button } from '@mui/material';
+import { Button as ButtonMaterialUI } from '@mui/material';
 
 type ButtonProps = PropsWithChildren<{
     onClick?: () => void;
@@ -7,7 +7,7 @@ type ButtonProps = PropsWithChildren<{
     size: 'xs' | 'sm' | 'md' | 'lg';
 }>;
 
-export const ButtonComponent = ({
+export const Button = ({
     children,
     onClick,
     variant = 'contained',
@@ -29,8 +29,12 @@ export const ButtonComponent = ({
     };
 
     return (
-        <Button variant={variant} style={sizeStyles[size]} onClick={onClick}>
+        <ButtonMaterialUI
+            variant={variant}
+            style={sizeStyles[size]}
+            onClick={onClick}
+        >
             {children}
-        </Button>
+        </ButtonMaterialUI>
     );
 };
