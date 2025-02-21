@@ -1,41 +1,24 @@
 import { JSX } from 'react';
-import {
-    Avatar,
-    Box,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-} from '@mui/material';
+import { Box, List, ListItem } from '@mui/material';
+import { HorseCard } from '../../components/card/HorseCard.tsx';
+import { horses } from '../../shared/constants';
 
 export function Horses(): JSX.Element {
     return (
         <Box>
             <List
-                dense
                 sx={{
                     width: '100%',
-                    maxWidth: 360,
+                    maxWidth: 600,
                     bgcolor: 'background.paper',
+                    display: 'flex',
+                    flexOrientation: 'row',
                 }}
             >
-                {[0, 1, 2, 3].map((value) => {
-                    const labelId = `checkbox-list-secondary-label-${value}`;
+                {horses.map((value, index) => {
                     return (
-                        <ListItem key={value} disablePadding>
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar
-                                        alt={`Avatar n°${value + 1}`}
-                                        src={`/static/images/avatar/${value + 1}.jpg`}
-                                    />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    id={labelId}
-                                    primary={`Horse ${value + 1}`}
-                                />
-                            </ListItemButton>
+                        <ListItem key={'horse_' + index}>
+                            <HorseCard horse={value} />
                         </ListItem>
                     );
                 })}
