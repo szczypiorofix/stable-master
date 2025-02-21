@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { Box, List, ListItem } from '@mui/material';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
-import { horses } from '../../shared/constants';
+import { horses } from '../../mock-data';
 
 export function Horses(): JSX.Element {
     return (
