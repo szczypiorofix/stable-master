@@ -6,32 +6,33 @@ import {
     CardMedia,
     Divider,
     Drawer,
-    List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { GlobalContext } from '../../context/AppContext.ts';
 import stableMasterLogo from '/stablemaster.png';
+import { getAllRoutesAsList } from '../../shared/helpers';
+import { Route } from '../../shared/models';
+import { useGlobalAppContext } from '../../context/AppContext.tsx';
 
 export function SideNav(): JSX.Element {
-    const { contextState, setContextState } = GlobalContext();
+    const { contextState, setContextState } = useGlobalAppContext();
 
     const toggleDrawer = (isOpen: boolean) => () => {
+        setContextState({ ...contextState, isSideNavOpen: isOpen });
+    };
+
+    const changeView = (route: Route) => {
         setContextState({
-            isSideNavOpen: isOpen,
+            ...contextState,
+            isSideNavOpen: false,
+            view: route.view,
         });
     };
 
     const DrawerList = (
-        <Box
-            sx={{ width: 260 }}
-            role='presentation'
-            onClick={toggleDrawer(false)}
-        >
+        <Box sx={{ width: 260 }} role='presentation'>
             <Card sx={{ maxWidth: 260 }}>
                 <CardActionArea>
                     <CardMedia
@@ -43,37 +44,18 @@ export function SideNav(): JSX.Element {
                 </CardActionArea>
             </Card>
             <Box sx={{ width: 260 }}></Box>
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map(
-                    (text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    )
-                )}
-            </List>
+            {getAllRoutesAsList().map((route, index) => (
+                <ListItem key={index} disablePadding>
+                    <ListItemButton
+                        selected={route.view === contextState.view}
+                        onClick={() => changeView(route)}
+                    >
+                        <ListItemIcon>{route.icon}</ListItemIcon>
+                        <ListItemText primary={route.name} />
+                    </ListItemButton>
+                </ListItem>
+            ))}
             <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
         </Box>
     );
     return (

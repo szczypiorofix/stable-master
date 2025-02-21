@@ -4,11 +4,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { GlobalContext } from '../../context/AppContext.ts';
 import { Box } from '@mui/material';
+import { useGlobalAppContext } from '../../context/AppContext.tsx';
 
 export function ToolBar(): JSX.Element {
-    const { contextState, setContextState } = GlobalContext();
+    const { contextState, setContextState } = useGlobalAppContext();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position='static'>

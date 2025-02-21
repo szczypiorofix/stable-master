@@ -1,17 +1,21 @@
-import { FC, ReactNode, useState } from 'react';
-import { IAppState } from '../shared/models';
-import { defaultAppState } from './AppContext.default.ts';
-import { AppContext } from './AppContext.ts';
+import { JSX, PropsWithChildren, useState } from 'react';
+import { AppContext } from './AppContext.tsx';
+import { AppStateModel } from '../shared/models';
+import { defaultAppState } from '../shared/constants';
 
-const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [state, setState] = useState<IAppState>(defaultAppState);
+export function AppContextProvider(props: PropsWithChildren): JSX.Element {
+    const [contextState, setContextState] =
+        useState<AppStateModel>(defaultAppState);
     return (
         <AppContext.Provider
-            value={{ contextState: state, setContextState: setState }}
+            value={{
+                contextState,
+                setContextState: (state: AppStateModel) => {
+                    setContextState({ ...contextState, ...state });
+                },
+            }}
         >
-            {children}
+            {props.children}
         </AppContext.Provider>
     );
-};
-
-export default AppContextProvider;
+}

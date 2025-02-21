@@ -1,15 +1,25 @@
-import { JSX, PropsWithChildren } from 'react';
-import { Box } from '@mui/material';
+import { JSX } from 'react';
+import { Box, Container } from '@mui/material';
 import { Footer } from '../footer/Footer.tsx';
 import { SideNav } from '../sidenav/SideNav.tsx';
 import { ToolBar } from '../toolbar/ToolBar.tsx';
+import { useGlobalAppContext } from '../../context/AppContext.tsx';
+import { AppView } from '../../shared/enums';
+import { getRoute } from '../../shared/helpers';
 
-export function ViewPort(props: PropsWithChildren): JSX.Element {
+export function ViewPort(): JSX.Element {
+    const { contextState } = useGlobalAppContext();
+    const resolveView = (view: AppView) => {
+        return getRoute(view).page;
+    };
+
     return (
         <Box>
             <ToolBar />
             <SideNav />
-            {props.children}
+            <Container maxWidth='lg'>
+                {resolveView(contextState.view)}
+            </Container>
             <Footer />
         </Box>
     );
