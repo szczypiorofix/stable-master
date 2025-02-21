@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { ComponentProps } from 'react';
-import { ButtonComponent } from '../components/button/Button.component.tsx';
+import { Button } from '../components/button/Button.component.tsx';
 
-type ButtonStoryProps = ComponentProps<typeof ButtonComponent> & {
+type ButtonStoryProps = ComponentProps<typeof Button> & {
     contentText: string;
 };
 
 const meta: Meta<ButtonStoryProps> = {
-    component: ButtonComponent,
+    component: Button,
     tags: ['autodocs'],
     argTypes: {
         variant: {
@@ -40,7 +40,7 @@ export const Container: Story = {
         size: 'md',
     },
     render: ({ contentText, ...args }) => {
-        return <ButtonComponent {...args}>{contentText}</ButtonComponent>;
+        return <Button {...args}>{contentText}</Button>;
     },
 };
 
@@ -51,7 +51,7 @@ export const Outlined: Story = {
         size: 'md',
     },
     render: ({ contentText, ...args }) => {
-        return <ButtonComponent {...args}>{contentText}</ButtonComponent>;
+        return <Button {...args}>{contentText}</Button>;
     },
 };
 
@@ -62,6 +62,6 @@ export const Text: Story = {
         size: 'md',
     },
     render: ({ contentText, ...args }) => {
-        return <ButtonComponent {...args}>{contentText}</ButtonComponent>;
+        return <Button {...args}>{contentText}</Button>;
     },
 };
