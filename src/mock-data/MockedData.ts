@@ -41,4 +41,18 @@ export const horses: Horse[] = [
         avatar: '/src/assets/images/horse2.jpg',
         gallery: [],
     },
+    {
+        id: '3',
+        name: 'Buddy',
+        dateOfBirth: '2018-01-01',
+        breed: 'Paint',
+        color: 'Pinto',
+        owner: people[0],
+        age: 3,
+        avatar: '/src/assets/images/horse3.jpg',
+        description: "This is a third horse. It's also a very nice horse.",
+        gallery: [],
+        sex: 'gelding',
+        onPaddock: true,
+    },
 ];
