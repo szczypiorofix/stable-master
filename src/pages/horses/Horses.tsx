@@ -1,28 +1,31 @@
 import { JSX } from 'react';
-import { Box, List, ListItem } from '@mui/material';
+
+import { Paper, Stack } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
 import { HorseCard } from '../../components/card/HorseCard.tsx';
 import { horses } from '../../mock-data';
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#fff',
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    ...theme.applyStyles('dark', {
+        backgroundColor: '#1A2027',
+    }),
+}));
+
 export function Horses(): JSX.Element {
     return (
-        <Box>
-            <List
-                sx={{
-                    width: '100%',
-                    maxWidth: 600,
-                    bgcolor: 'background.paper',
-                    display: 'flex',
-                    flexOrientation: 'row',
-                }}
-            >
-                {horses.map((value, index) => {
-                    return (
-                        <ListItem key={'horse_' + index}>
-                            <HorseCard horse={value} />
-                        </ListItem>
-                    );
-                })}
-            </List>
-        </Box>
+        <Stack direction='row' spacing={5} mt={2}>
+            {horses.map((value, index) => {
+                return (
+                    <Item key={'horse_' + index}>
+                        <HorseCard horse={value} />
+                    </Item>
+                );
+            })}
+        </Stack>
     );
 }
