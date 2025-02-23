@@ -1,3 +1,5 @@
+import { RoleEnum } from '../shared/enums/Roles.enum.ts';
+
 export interface Person {
     id: string;
     firstName: string;
@@ -6,4 +8,5 @@ export interface Person {
     address: string;
     sex: string;
     isRider: boolean;
+    role: RoleEnum;
 }
