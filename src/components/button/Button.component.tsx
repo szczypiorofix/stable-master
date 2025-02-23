@@ -1,4 +1,5 @@
 import { CSSProperties, JSX, PropsWithChildren } from 'react';
+
 import { Button as ButtonMaterialUI } from '@mui/material';
 
 type ButtonProps = PropsWithChildren<{

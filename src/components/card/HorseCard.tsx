@@ -1,12 +1,14 @@
 import { JSX } from 'react';
+
+import { Box } from '@mui/material';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
 import { Horse } from '../../@types';
-import { Box } from '@mui/material';
 
 export function HorseCard(props: { horse: Horse }): JSX.Element {
     return (
@@ -14,7 +16,7 @@ export function HorseCard(props: { horse: Horse }): JSX.Element {
             <CardMedia
                 sx={{ height: 160 }}
                 image={props.horse.avatar}
-                title='green iguana'
+                title={props.horse.name + ' avatar'}
             />
             <CardContent>
                 <Typography gutterBottom variant='h5' component='div'>

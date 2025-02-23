@@ -1,4 +1,5 @@
 import { JSX } from 'react';
+
 import { AppView } from '../enums';
 
 export interface Route {

@@ -1,12 +1,13 @@
-import { AppView } from '../enums';
-import { Route } from '../models';
-import { Home, Horses, Schedules, Stalls } from '../../pages';
 import {
     BedroomBaby,
     CalendarMonth,
     Home as HomeIcon,
     VerticalShades,
 } from '@mui/icons-material';
+
+import { Home, Horses, Schedules, Stalls } from '../../pages';
+import { AppView } from '../enums';
+import { Route } from '../models';
 
 export const routes: Record<AppView, Route> = {
     [AppView.HOME]: {

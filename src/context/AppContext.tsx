@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
-import { AppContextModel } from '../shared/models';
 import { defaultAppContextState } from '../shared/constants';
+import { AppContextModel } from '../shared/models';
 
 export const AppContext = createContext<AppContextModel>(
     defaultAppContextState

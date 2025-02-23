@@ -1,4 +1,5 @@
 import { JSX } from 'react';
+
 import {
     Box,
     Card,
@@ -11,10 +12,12 @@ import {
     ListItemIcon,
     ListItemText,
 } from '@mui/material';
-import stableMasterLogo from '/stablemaster.png';
+
+import { useGlobalAppContext } from '../../context/AppContext.tsx';
 import { getAllRoutesAsList } from '../../shared/helpers';
 import { Route } from '../../shared/models';
-import { useGlobalAppContext } from '../../context/AppContext.tsx';
+
+import stableMasterLogo from '/stablemaster.png';
 
 export function SideNav(): JSX.Element {
     const { contextState, setContextState } = useGlobalAppContext();

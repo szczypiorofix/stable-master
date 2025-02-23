@@ -1,7 +1,9 @@
 import { JSX, PropsWithChildren, useState } from 'react';
-import { AppContext } from './AppContext.tsx';
-import { AppStateModel } from '../shared/models';
+
 import { defaultAppState } from '../shared/constants';
+import { AppStateModel } from '../shared/models';
+
+import { AppContext } from './AppContext.tsx';
 
 export function AppContextProvider(props: PropsWithChildren): JSX.Element {
     const [contextState, setContextState] =

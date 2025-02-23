@@ -1,6 +1,8 @@
-import { screen, render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+
 import { Button } from './Button.component.tsx';
+
+import { render, screen } from '@testing-library/react';
 
 describe('ButtonComponent', () => {
     it('renders button element', () => {

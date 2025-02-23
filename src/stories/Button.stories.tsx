@@ -1,7 +1,9 @@
+import { ComponentProps } from 'react';
+
+import { Button } from '../components/button/Button.component.tsx';
+
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { ComponentProps } from 'react';
-import { Button } from '../components/button/Button.component.tsx';
 
 type ButtonStoryProps = ComponentProps<typeof Button> & {
     contentText: string;

@@ -1,6 +1,6 @@
 import { routes } from '../constants';
-import { Route } from '../models';
 import { AppView } from '../enums';
+import { Route } from '../models';
 
 export function getAllRoutesAsList(): Route[] {
     return Object.entries(routes).map(([, route]) => route);
