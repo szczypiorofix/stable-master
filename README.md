@@ -30,11 +30,17 @@ npm run dev
 
 ## Screenshots
 
-Home page view:
+<details>
+<summary>Home page view:</summary>
 ![stable-master](https://stablemaster.wroblewskipiotr.pl/screenshots/sm_Screenshot1.jpg 'Stable Master - Home view')
+</details>
 
-Horses page view:
+<details>
+<summary>Horses page view:</summary>
 ![stable-master](https://stablemaster.wroblewskipiotr.pl/screenshots/sm_Screenshot2.jpg 'Stable Master - Horses view')
+</details>
 
-Side navigation menu:
+<details>
+<summary>Side navigation menu:</summary>
 ![stable-master](https://stablemaster.wroblewskipiotr.pl/screenshots/sm_Screenshot3.jpg 'Stable Master - side menu')
+</details>
