@@ -12,7 +12,7 @@ import { Horse } from '../../@types';
 
 export function HorseCard(props: { horse: Horse }): JSX.Element {
     return (
-        <Card sx={{ width: 345, mt: 1 }}>
+        <Card sx={{ width: 345, mt: 1, textAlign: 'left' }}>
             <CardMedia
                 sx={{ height: 160 }}
                 image={props.horse.avatar}
