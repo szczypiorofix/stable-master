@@ -62,13 +62,8 @@ export function SideNav(): JSX.Element {
         </Box>
     );
     return (
-        <div>
-            <Drawer
-                open={contextState.isSideNavOpen}
-                onClose={toggleDrawer(false)}
-            >
-                {DrawerList}
-            </Drawer>
-        </div>
+        <Drawer open={contextState.isSideNavOpen} onClose={toggleDrawer(false)}>
+            {DrawerList}
+        </Drawer>
     );
 }

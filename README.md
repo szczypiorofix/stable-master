@@ -51,7 +51,6 @@ npm run test
 <img src="https://stablemaster.wroblewskipiotr.pl/screenshots/sm_Screenshot3.jpg" alt="Stable Master - side menu">
 </details>
 
-
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
