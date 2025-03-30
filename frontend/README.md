@@ -1,6 +1,6 @@
 # Stable Master
 
-Stable Master - simple stable management tool
+Stable Master - client application
 
 ![stable-master](public/icons/android-icon-72x72.png 'Stable Master')
 
