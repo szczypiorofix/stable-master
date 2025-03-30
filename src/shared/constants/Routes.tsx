@@ -1,37 +1,52 @@
 import {
-    BedroomBaby,
-    CalendarMonth,
+    BedroomBaby as BedroomBabyIcon,
+    CalendarMonth as CalendarMonthIcon,
     Home as HomeIcon,
-    VerticalShades,
+    People as PeopleIcon,
+    Settings as SettingsIcon,
+    VerticalShades as VerticalShadesIcon,
 } from '@mui/icons-material';
 
-import { Home, Horses, Schedules, Stalls } from '../../pages';
-import { AppView } from '../enums';
+import { Home, Horses, Schedules, Settings, Stalls } from '../../pages';
+import { Staff } from '../../pages/staff/Staff.tsx';
+import { APP_VIEW } from '../enums';
 import { Route } from '../models';
 
-export const routes: Record<AppView, Route> = {
-    [AppView.HOME]: {
+export const routes: Record<APP_VIEW, Route> = {
+    [APP_VIEW.HOME]: {
         name: 'Home',
-        view: AppView.HOME,
+        view: APP_VIEW.HOME,
         page: <Home />,
         icon: <HomeIcon />,
     },
-    [AppView.HORSES]: {
+    [APP_VIEW.HORSES]: {
         name: 'Horses',
-        view: AppView.HORSES,
+        view: APP_VIEW.HORSES,
         page: <Horses />,
-        icon: <BedroomBaby />,
+        icon: <BedroomBabyIcon />,
     },
-    [AppView.STALLS]: {
+    [APP_VIEW.STAFF]: {
+        name: 'Staff',
+        view: APP_VIEW.STAFF,
+        page: <Staff />,
+        icon: <PeopleIcon />,
+    },
+    [APP_VIEW.STALLS]: {
         name: 'Stalls',
-        view: AppView.STALLS,
+        view: APP_VIEW.STALLS,
         page: <Stalls />,
-        icon: <VerticalShades />,
+        icon: <VerticalShadesIcon />,
     },
-    [AppView.SCHEDULES]: {
+    [APP_VIEW.SCHEDULES]: {
         name: 'Schedules',
-        view: AppView.SCHEDULES,
+        view: APP_VIEW.SCHEDULES,
         page: <Schedules />,
-        icon: <CalendarMonth />,
+        icon: <CalendarMonthIcon />,
+    },
+    [APP_VIEW.SETTINGS]: {
+        name: 'Settings',
+        view: APP_VIEW.SETTINGS,
+        page: <Settings />,
+        icon: <SettingsIcon />,
     },
 };

@@ -1,9 +1,11 @@
+import { APP_VIEW } from '../enums';
 import { AppContextModel, AppStateModel } from '../models';
-import { AppView } from '../enums';
 
 export const defaultAppState: AppStateModel = {
     isSideNavOpen: false,
-    view: AppView.HOME,
+    view: APP_VIEW.HOME,
+    stableAddress: '',
+    stableName: '',
 };
 
 export const defaultAppContextState: AppContextModel = {

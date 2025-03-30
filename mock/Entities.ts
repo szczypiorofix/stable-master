@@ -1,5 +1,5 @@
-import { Horse, Person, Stable } from '../@types';
-import { RoleEnum } from '../shared/enums/Roles.enum.ts';
+import { Horse, Person, Stable } from '../src/@types';
+import { USER_ROLE } from '../src/shared/enums';
 
 export const people: Person[] = [
     {
@@ -10,7 +10,7 @@ export const people: Person[] = [
         address: '123 Main St',
         sex: 'M',
         isRider: true,
-        role: RoleEnum.RIDER,
+        role: USER_ROLE.RIDER,
     },
 ];
 

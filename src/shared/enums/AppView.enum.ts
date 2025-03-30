@@ -1,6 +1,8 @@
-export enum AppView {
+export enum APP_VIEW {
     HOME,
     HORSES,
-    STALLS,
+    STAFF,
     SCHEDULES,
+    STALLS,
+    SETTINGS,
 }
