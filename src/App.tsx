@@ -1,11 +1,14 @@
+import { JSX } from 'react';
 
-function App() {
+import { ViewPort } from './components/viewport/ViewPort.tsx';
+import { AppContextProvider } from './context/AppContext.provider.tsx';
 
-  return (
-    <>
-
-    </>
-  )
+function App(): JSX.Element {
+    return (
+        <AppContextProvider>
+            <ViewPort />
+        </AppContextProvider>
+    );
 }
 
-export default App
+export default App;
