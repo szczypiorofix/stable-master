@@ -4,6 +4,8 @@ Stable Master - simple stable management tool
 
 ![stable-master](public/icons/android-icon-72x72.png 'Stable Master')
 
+![Current version](https://img.shields.io/badge/Current%20version-0.0.2-blue)
+
 ## Usage
 
 ### Installation
