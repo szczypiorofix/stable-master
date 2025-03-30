@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 
-import { stables } from '../../mock-data';
+import { stables } from '../../../mock';
 
 export function Home(): JSX.Element {
     const stable = stables[0]; // Assuming you want to display the first stable
