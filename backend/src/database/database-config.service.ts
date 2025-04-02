@@ -10,11 +10,11 @@ export class DatabaseConfigService {
     public getDatabaseConfig(): TypeOrmModuleOptions {
         return {
             type: 'mysql',
-            host: this.configService.get('DBHOST'),
-            port: parseInt(this.configService.get('DBPORT') || '3000'),
-            username: this.configService.get('DBUSER'),
-            password: this.configService.get('DBPASS'),
-            database: this.configService.get('DBNAME'),
+            host: this.configService.get('MYSQL_HOST'),
+            port: parseInt(this.configService.get('MYSQL_PORT') || '3000'),
+            username: this.configService.get('MYSQL_USER'),
+            password: this.configService.get('MYSQL_PASSWORD'),
+            database: this.configService.get('MYSQL_DATABASE'),
             entities: allEntities,
             synchronize: true,
         };
