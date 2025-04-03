@@ -1,1 +1,1 @@
-export * from './SercieDetails';
+export * from './ServiceDetails.d';
