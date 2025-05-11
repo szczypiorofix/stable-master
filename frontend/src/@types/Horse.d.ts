@@ -1,5 +1,9 @@
 import { HORSE_SEX } from "../shared/enums";
 
+import { FarrierVisit } from "./FarrierVisit";
+import { Owner } from "./Owner";
+import { VetVisit } from "./VetVisit";
+
 export interface Horse {
     id: number;
     name: string;
@@ -11,7 +15,7 @@ export interface Horse {
     avatar: string;
     description: string;
     age: number;
-    owner: OwnerEntity;
-    vetVisits: VetVisitEntity[];
-    farrierVisits: FarrierVisitEntity[];
+    owner: Owner;
+    vetVisits: VetVisit[];
+    farrierVisits: FarrierVisit[];
 }
