@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import {JSX, useState} from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Fab, Paper, Stack } from '@mui/material';
@@ -7,6 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import { horses } from '../../../mock';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
+import { HorseDetailsDialog } from "../../components/dialog/HorseDetailsDialog.tsx";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -19,8 +20,14 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export function Horses(): JSX.Element {
+    const [addHorse, setAddHorse] = useState(false);
+
     return (
         <Box>
+            {addHorse && <HorseDetailsDialog
+                open={addHorse}
+                onClose={() => setAddHorse(false)}
+            />}
             <Stack
                 direction='row'
                 spacing={5}
@@ -37,7 +44,7 @@ export function Horses(): JSX.Element {
             </Stack>
             <Box pt={2} pb={2} display={'flex'} justifyContent={'flex-end'}>
                 <Tooltip title='Add horse' arrow>
-                    <Fab color='primary' aria-label='add'>
+                    <Fab color='primary' aria-label='add' onClick={() => setAddHorse(true)}>
                         <AddIcon />
                     </Fab>
                 </Tooltip>

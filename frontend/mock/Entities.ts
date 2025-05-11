@@ -1,5 +1,5 @@
 import { Horse, Person, Stable } from '../src/@types';
-import { USER_ROLE } from '../src/shared/enums';
+import { HORSE_SEX, USER_ROLE } from '../src/shared/enums';
 
 export const people: Person[] = [
     {
@@ -16,46 +16,49 @@ export const people: Person[] = [
 
 export const horses: Horse[] = [
     {
-        id: '1',
+        id: 1,
         name: 'Navarro',
-        dateOfBirth: '2010-01-01',
         breed: 'Thoroughbred',
         color: 'Bay',
         owner: people[0],
+        active: 1,
+        birthdate: new Date(),
+        vetVisits: [],
+        farrierVisits: [],
         age: 11,
-        sex: 'stallion',
-        onPaddock: true,
+        sex: HORSE_SEX.STALLION,
         avatar: '/src/assets/images/horse1.jpg',
         description: "This is a horse. It's a very nice horse.",
-        gallery: [],
     },
     {
-        id: '2',
+        id: 2,
         name: 'Hank',
-        dateOfBirth: '2015-01-01',
+        birthdate: new Date(),
         breed: 'Quarter Horse',
         color: 'Palomino',
         owner: people[0],
+        active: 1,
+        vetVisits: [],
+        farrierVisits: [],
         age: 6,
-        sex: 'gelding',
-        onPaddock: false,
+        sex: HORSE_SEX.MARE,
         description: "This is another horse. It's also a very nice horse.",
         avatar: '/src/assets/images/horse2.jpg',
-        gallery: [],
     },
     {
-        id: '3',
+        id: 3,
         name: 'Buddy',
-        dateOfBirth: '2018-01-01',
+        birthdate: new Date(),
         breed: 'Paint',
         color: 'Pinto',
         owner: people[0],
         age: 3,
         avatar: '/src/assets/images/horse3.jpg',
         description: "This is a third horse. It's also a very nice horse.",
-        gallery: [],
-        sex: 'gelding',
-        onPaddock: true,
+        sex: HORSE_SEX.GELDING,
+        farrierVisits: [],
+        vetVisits: [],
+        active: 1,
     },
 ];
 
