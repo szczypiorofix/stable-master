@@ -1,8 +1,11 @@
 {
-    "name": "stable-master",
+    "name": "stable-master-frontend",
     "private": true,
-    "version": "0.0.2",
+    "version": "0.1.0",
     "type": "module",
+    "description": "Stable Master client application",
+    "author": "szczypiorofix",
+    "license": "MIT",
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
@@ -16,8 +19,8 @@
         "build-storybook": "storybook build"
     },
     "engines": {
-        "npm": "11.1.0",
-        "node": "20.18.1"
+        "npm": "^11.1.0",
+        "node": "^20.18.1"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
