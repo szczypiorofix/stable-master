@@ -11,7 +11,7 @@ export interface DatabaseConfig {
 
 export const defaultDatabaseConfig: DatabaseConfig = {
     type: 'mysql',
-    host: 'mysqldb',
+    host: 'localhost',
     port: 3306,
     username: 'root',
     password: '',
