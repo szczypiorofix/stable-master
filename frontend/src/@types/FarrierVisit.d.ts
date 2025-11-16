@@ -1,4 +1,4 @@
-import { Horse } from "./Horse";
+import { Horse } from './Horse';
 
 export class FarrierVisitEntity {
     id: number;

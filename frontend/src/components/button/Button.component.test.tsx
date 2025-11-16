@@ -9,18 +9,16 @@ describe('ButtonComponent', () => {
         render(
             <Button size={'sm'} variant={'contained'}>
                 Click me
-            </Button>
+            </Button>,
         );
-        expect(
-            screen.getByRole('button', { name: /Click me/i })
-        ).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Click me/i })).toBeInTheDocument();
     });
 
     it('renders enabled button', () => {
         render(
             <Button size={'sm'} variant={'contained'}>
                 Click me
-            </Button>
+            </Button>,
         );
         const loginBtn = screen.getByRole('button', { name: /Click me/i });
         expect(loginBtn).toBeInTheDocument();

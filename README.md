@@ -4,7 +4,6 @@ Stable Master - simple stable management tool
 
 ![stable-master](frontend/public/icons/android-icon-72x72.png 'Stable Master')
 
-
 ## Screenshots
 
 <details>

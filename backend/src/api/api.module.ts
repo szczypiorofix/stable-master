@@ -1,16 +1,21 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ApiController } from './api.controller';
-import { ApiService } from './api.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoggerMiddleware } from '../middleware/logger.middleware';
-import { HeaderMiddleware } from '../middleware/header.middleware';
+
 import databaseRegisteredConfig, { DatabaseConfig, defaultDatabaseConfig } from '../config/database.config';
+import { HeaderMiddleware } from '../middleware/header.middleware';
+import { LoggerMiddleware } from '../middleware/logger.middleware';
 import { allEntities } from '../typeorm';
+
+import { ApiController } from './api.controller';
+import { ApiService } from './api.service';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ isGlobal: true, load: [databaseRegisteredConfig] }),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [databaseRegisteredConfig],
+        }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

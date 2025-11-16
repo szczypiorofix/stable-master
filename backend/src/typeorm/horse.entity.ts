@@ -1,7 +1,8 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { FarrierVisitEntity } from './farriervisit.entity';
 import { OwnerEntity } from './owner.entity';
 import { VetVisitEntity } from './vetvisit.entity';
-import { FarrierVisitEntity } from './farriervisit.entity';
 
 export enum HORSE_SEX {
     MARE = 'mare',

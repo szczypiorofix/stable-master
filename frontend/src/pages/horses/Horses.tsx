@@ -1,4 +1,4 @@
-import {JSX, useState} from 'react';
+import { JSX, useState } from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Fab, Paper, Stack } from '@mui/material';
@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import { horses } from '../../../mock';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
-import { HorseDetailsDialog } from "../../components/dialog/HorseDetailsDialog.tsx";
+import { HorseDetailsDialog } from '../../components/dialog/HorseDetailsDialog.tsx';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -24,16 +24,8 @@ export function Horses(): JSX.Element {
 
     return (
         <Box>
-            {addHorse && <HorseDetailsDialog
-                open={addHorse}
-                onClose={() => setAddHorse(false)}
-            />}
-            <Stack
-                direction='row'
-                spacing={5}
-                mt={2}
-                justifyContent={'space-between'}
-            >
+            {addHorse && <HorseDetailsDialog open={addHorse} onClose={() => setAddHorse(false)} />}
+            <Stack direction='row' spacing={5} mt={2} justifyContent={'space-between'}>
                 {horses.map((value, index) => {
                     return (
                         <Item key={'horse_' + index}>

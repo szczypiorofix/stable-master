@@ -42,8 +42,6 @@ const environments: Record<DATA_SOURCE, EnvironmentScheme> = {
     },
 };
 
-export function getEnvironmentDetails(
-    environment: DATA_SOURCE
-): EnvironmentScheme {
+export function getEnvironmentDetails(environment: DATA_SOURCE): EnvironmentScheme {
     return environments[environment];
 }

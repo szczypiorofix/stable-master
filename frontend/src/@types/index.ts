@@ -7,4 +7,3 @@ export * from './Stable.d';
 export * from './StableBox.d';
 export * from './User.d';
 export * from './VetVisit.d';
-

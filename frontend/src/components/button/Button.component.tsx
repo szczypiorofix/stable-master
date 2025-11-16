@@ -8,12 +8,7 @@ type ButtonProps = PropsWithChildren<{
     size: 'xs' | 'sm' | 'md' | 'lg';
 }>;
 
-export function Button({
-    children,
-    onClick,
-    variant = 'contained',
-    size = 'md',
-}: ButtonProps): JSX.Element {
+export function Button({ children, onClick, variant = 'contained', size = 'md' }: ButtonProps): JSX.Element {
     const sizeStyles: Record<ButtonProps['size'], CSSProperties> = {
         xs: {
             padding: '0.25rem',
@@ -30,11 +25,7 @@ export function Button({
     };
 
     return (
-        <ButtonMaterialUI
-            variant={variant}
-            style={sizeStyles[size]}
-            onClick={onClick}
-        >
+        <ButtonMaterialUI variant={variant} style={sizeStyles[size]} onClick={onClick}>
             {children}
         </ButtonMaterialUI>
     );

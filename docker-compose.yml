@@ -1,52 +1,52 @@
 version: '3.8'
 services:
-  mysqldb:
-    image: mysql:8.0
-    container_name: sm_db
-    restart: unless-stopped
-    env_file:
-      - backend/.env
-    ports:
-      - '3306:3306'
-    volumes:
-      - db-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    mysqldb:
+        image: mysql:8.0
+        container_name: sm_db
+        restart: unless-stopped
+        env_file:
+            - backend/.env
+        ports:
+            - '3306:3306'
+        volumes:
+            - db-data:/var/lib/mysql
+        healthcheck:
+            test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+            interval: 5s
+            timeout: 5s
+            retries: 5
 
-  backend_app:
-    container_name: sm_be
-    build: ./backend
-    ports:
-      - '3000:3000'
-    depends_on:
-      mysqldb:
-        condition: service_healthy
-    env_file:
-      - backend/.env
-    volumes:
-      - backend-data:/app
+    backend_app:
+        container_name: sm_be
+        build: ./backend
+        ports:
+            - '3000:3000'
+        depends_on:
+            mysqldb:
+                condition: service_healthy
+        env_file:
+            - backend/.env
+        volumes:
+            - backend-data:/app
 
-  frontend_app:
-    container_name: sm_fe
-    build: ./frontend
-    ports:
-      - '5173:5173'
-    depends_on:
-      - backend_app
-    env_file:
-      - frontend/.env
-    volumes:
-      - frontend-data:/app
-    stdin_open: true
-    tty: true
+    frontend_app:
+        container_name: sm_fe
+        build: ./frontend
+        ports:
+            - '5173:5173'
+        depends_on:
+            - backend_app
+        env_file:
+            - frontend/.env
+        volumes:
+            - frontend-data:/app
+        stdin_open: true
+        tty: true
 
 volumes:
-  db-data:
-    name: sm_database_volume
-  backend-data:
-    name: sm_backend_volume
-  frontend-data:
-    name: sm_frontend_volume
+    db-data:
+        name: sm_database_volume
+    backend-data:
+        name: sm_backend_volume
+    frontend-data:
+        name: sm_frontend_volume

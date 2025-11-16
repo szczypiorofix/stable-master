@@ -8,7 +8,9 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    Divider, FormControl, InputLabel,
+    Divider,
+    FormControl,
+    InputLabel,
     MenuItem,
     Select,
     styled,
@@ -52,16 +54,12 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         breed: '',
         age: 0,
         name: '',
-        id: 0
+        id: 0,
     });
 
     return (
         <Fragment>
-            <BootstrapDialog
-                onClose={props.onClose}
-                aria-labelledby='customized-dialog-title'
-                open={props.open}
-            >
+            <BootstrapDialog onClose={props.onClose} aria-labelledby='customized-dialog-title' open={props.open}>
                 <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
                     Add new horse
                 </DialogTitle>
@@ -78,36 +76,18 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <Typography gutterBottom>
-                        Please provide the following information about the
-                        horse.
-                    </Typography>
+                    <Typography gutterBottom>Please provide the following information about the horse.</Typography>
 
                     <Box mt={2} mb={2}>
-                        <TextField
-                            id='horse-name'
-                            label='Name'
-                            variant='standard'
-                            fullWidth
-                        />
+                        <TextField id='horse-name' label='Name' variant='standard' fullWidth />
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField
-                            id='horse-breed'
-                            label='Breed'
-                            variant='standard'
-                            fullWidth
-                        />
+                        <TextField id='horse-breed' label='Breed' variant='standard' fullWidth />
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField
-                            id='horse-color'
-                            label='Color'
-                            variant='standard'
-                            fullWidth
-                        />
+                        <TextField id='horse-color' label='Color' variant='standard' fullWidth />
                     </Box>
 
                     <Box mt={2} mb={2}>
@@ -131,8 +111,10 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <FormControl fullWidth margin="normal" size="medium">
-                            <InputLabel id="horse-sex-select-label" variant={'outlined'}>Sex</InputLabel>
+                        <FormControl fullWidth margin='normal' size='medium'>
+                            <InputLabel id='horse-sex-select-label' variant={'outlined'}>
+                                Sex
+                            </InputLabel>
                             <Select
                                 labelId='horse-sex-select-label'
                                 id='horse-sex-select'

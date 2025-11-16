@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 import { HorseEntity } from './horse.entity';
 
 @Entity({ name: 'farriervisits' })

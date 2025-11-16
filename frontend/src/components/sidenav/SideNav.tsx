@@ -38,21 +38,13 @@ export function SideNav(): JSX.Element {
         <Box sx={{ width: 260 }} role='presentation'>
             <Card sx={{ maxWidth: 260 }}>
                 <CardActionArea>
-                    <CardMedia
-                        component='img'
-                        height='194'
-                        image={stableMasterLogo}
-                        alt='Stable Master logo'
-                    />
+                    <CardMedia component='img' height='194' image={stableMasterLogo} alt='Stable Master logo' />
                 </CardActionArea>
             </Card>
             <Box sx={{ width: 260 }}></Box>
             {getAllRoutesAsList().map((route, index) => (
                 <ListItem key={index} disablePadding>
-                    <ListItemButton
-                        selected={route.view === contextState.view}
-                        onClick={() => changeView(route)}
-                    >
+                    <ListItemButton selected={route.view === contextState.view} onClick={() => changeView(route)}>
                         <ListItemIcon>{route.icon}</ListItemIcon>
                         <ListItemText primary={route.name} />
                     </ListItemButton>

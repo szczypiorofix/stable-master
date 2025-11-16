@@ -1,8 +1,8 @@
-import { HORSE_SEX } from "../shared/enums";
+import { HORSE_SEX } from '../shared/enums';
 
-import { FarrierVisit } from "./FarrierVisit";
-import { Owner } from "./Owner";
-import { VetVisit } from "./VetVisit";
+import { FarrierVisit } from './FarrierVisit';
+import { Owner } from './Owner';
+import { VetVisit } from './VetVisit';
 
 export interface Horse {
     id: number;
