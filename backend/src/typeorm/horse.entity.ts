@@ -27,10 +27,10 @@ export class HorseEntity {
     @Column()
     birthdate: Date;
 
-    @Column('enum', { enum: HORSE_SEX })
+    @Column({ length: 60 })
     color: string;
 
-    @Column()
+    @Column('enum', { enum: HORSE_SEX })
     sex: string;
 
     @Column()

@@ -1,11 +1,10 @@
-import { JSX, useState } from 'react';
-
+import { JSX, useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Fab, Paper, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 
-import { horses } from '../../../mock';
+import { Horse } from '../../@types';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
 import { HorseDetailsDialog } from '../../components/dialog/HorseDetailsDialog.tsx';
 
@@ -21,10 +20,43 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export function Horses(): JSX.Element {
     const [addHorse, setAddHorse] = useState(false);
+    const [horses, setHorses] = useState<Horse[]>([]);
+
+    const AddHorseToDatabase = (horse: Horse | null) => {
+        console.log('New horse... ', horse);
+        if (horse) {
+            console.log('Adding horse to database...');
+
+            fetch('http://localhost:3000/v1/horse', {
+                method: 'POST',
+                body: JSON.stringify(horse),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((res) => res.json())
+                .then((resp) => console.log(resp))
+                .catch((err) => console.log(err));
+
+            setAddHorse(false);
+            return;
+        }
+        setAddHorse(false);
+    };
+
+    useEffect(() => {
+        console.log('Reading horses...');
+        fetch('http://localhost:3000/v1/horse')
+            .then(async (res) => await res.json())
+            .then((resp: Horse[]) => {
+                setHorses(resp);
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <Box>
-            {addHorse && <HorseDetailsDialog open={addHorse} onClose={() => setAddHorse(false)} />}
+            {addHorse && <HorseDetailsDialog open={addHorse} onClose={AddHorseToDatabase} />}
             <Stack direction='row' spacing={5} mt={2} justifyContent={'space-between'}>
                 {horses.map((value, index) => {
                     return (

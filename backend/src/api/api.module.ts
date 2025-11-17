@@ -7,6 +7,7 @@ import { HeaderMiddleware } from '../middleware/header.middleware';
 import { LoggerMiddleware } from '../middleware/logger.middleware';
 import { allEntities } from '../typeorm';
 
+import { HorseModule } from './horse/horse.module';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
 
@@ -35,6 +36,7 @@ import { ApiService } from './api.service';
                 };
             },
         }),
+        HorseModule,
     ],
     controllers: [ApiController],
     providers: [ApiService],

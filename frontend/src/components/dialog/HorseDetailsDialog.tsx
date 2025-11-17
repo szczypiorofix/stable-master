@@ -1,5 +1,6 @@
-import { Fragment, useState } from 'react';
+import dayjs from 'dayjs';
 
+import { Fragment, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
     Box,
@@ -37,7 +38,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export interface HorseDetailsDialogProps {
     open: boolean;
-    onClose: () => void;
+    onClose: (horse: Horse | null) => void;
 }
 
 export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
@@ -57,15 +58,26 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         id: 0,
     });
 
+    const handleInputChange = <K extends keyof Horse>(key: K, value: Horse[K]) => {
+        setHorse((prevHorse) => ({
+            ...prevHorse,
+            [key]: value,
+        }));
+    };
+
     return (
         <Fragment>
-            <BootstrapDialog onClose={props.onClose} aria-labelledby='customized-dialog-title' open={props.open}>
+            <BootstrapDialog
+                onClose={() => props.onClose(null)}
+                aria-labelledby='customized-dialog-title'
+                open={props.open}
+            >
                 <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
                     Add new horse
                 </DialogTitle>
                 <IconButton
                     aria-label='close'
-                    onClick={props.onClose}
+                    onClick={() => props.onClose(null)}
                     sx={(theme) => ({
                         position: 'absolute',
                         right: 8,
@@ -79,21 +91,50 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     <Typography gutterBottom>Please provide the following information about the horse.</Typography>
 
                     <Box mt={2} mb={2}>
-                        <TextField id='horse-name' label='Name' variant='standard' fullWidth />
+                        <TextField
+                            id='horse-name'
+                            label='Name'
+                            variant='standard'
+                            value={horse.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            fullWidth
+                        />
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField id='horse-breed' label='Breed' variant='standard' fullWidth />
+                        <TextField
+                            id='horse-breed'
+                            label='Breed'
+                            variant='standard'
+                            value={horse.breed}
+                            onChange={(e) => handleInputChange('breed', e.target.value)}
+                            fullWidth
+                        />
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField id='horse-color' label='Color' variant='standard' fullWidth />
+                        <TextField
+                            id='horse-color'
+                            label='Color'
+                            variant='standard'
+                            value={horse.color}
+                            onChange={(e) => handleInputChange('color', e.target.value)}
+                            fullWidth
+                        />
                     </Box>
 
                     <Box mt={2} mb={2}>
                         <Typography gutterBottom>Date of birth</Typography>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker sx={{ width: '100%' }} />
+                            <DatePicker
+                                sx={{ width: '100%' }}
+                                value={dayjs(horse.birthdate)}
+                                onChange={(newValue) => {
+                                    if (newValue) {
+                                        handleInputChange('birthdate', newValue.toDate());
+                                    }
+                                }}
+                            />
                         </LocalizationProvider>
                     </Box>
 
@@ -106,6 +147,8 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                             multiline={true}
                             maxRows={4}
                             variant='filled'
+                            value={horse.description}
+                            onChange={(e) => handleInputChange('description', e.target.value)}
                             fullWidth
                         />
                     </Box>
@@ -118,21 +161,16 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                             <Select
                                 labelId='horse-sex-select-label'
                                 id='horse-sex-select'
-                                value={horse.sex}
                                 label='Sex'
                                 variant={'outlined'}
                                 fullWidth
-                                onChange={(e) =>
-                                    setHorse({
-                                        ...horse,
-                                        sex: e.target.value as HORSE_SEX,
-                                    })
-                                }
+                                value={horse.sex}
+                                onChange={(e) => handleInputChange('sex', e.target.value as HORSE_SEX)}
                             >
                                 {getListOfHorseSexes().map((value, index) => {
                                     return (
-                                        <MenuItem key={index} value={value.toString()}>
-                                            {value.toString()}
+                                        <MenuItem key={index} value={value}>
+                                            {value}
                                         </MenuItem>
                                     );
                                 })}
@@ -141,7 +179,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={props.onClose}>
+                    <Button autoFocus onClick={() => props.onClose(horse)}>
                         Save changes
                     </Button>
                 </DialogActions>
