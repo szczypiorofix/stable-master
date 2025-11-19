@@ -7,6 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Horse } from '../../@types';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
 import { HorseDetailsDialog } from '../../components/dialog/HorseDetailsDialog.tsx';
+import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -22,41 +23,72 @@ export function Horses(): JSX.Element {
     const [addHorse, setAddHorse] = useState(false);
     const [horses, setHorses] = useState<Horse[]>([]);
 
-    const AddHorseToDatabase = (horse: Horse | null) => {
-        console.log('New horse... ', horse);
-        if (horse) {
-            console.log('Adding horse to database...');
+    const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
 
-            fetch('http://localhost:3000/v1/horse', {
+    const fetchHorses = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/horse`);
+            if (!response.ok) {
+                throw new Error('Can not find horses');
+            }
+            const data: Horse[] = (await response.json()) as Horse[];
+            setHorses(data);
+        } catch (error) {
+            console.error('Fetch horses error:', error);
+        }
+    };
+
+    const handleAddHorse = (horse: Horse | null) => {
+        addHorseToDatabase(horse)
+            .then((resp) => console.log(resp))
+            .catch((err) => console.error(err));
+    };
+
+    const handleCloseDialog = () => {
+        setAddHorse(false);
+        fetchHorses()
+            .then((resp) => console.log(resp))
+            .catch((err) => console.error(err));
+    };
+
+    const addHorseToDatabase = async (horse: Horse | null) => {
+        console.log('New horse... ', horse);
+        if (!horse) {
+            handleCloseDialog();
+            return;
+        }
+
+        console.log('Adding horse to database...');
+
+        try {
+            const response = await fetch(`${apiUrl}/horse`, {
                 method: 'POST',
                 body: JSON.stringify(horse),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            })
-                .then((res) => res.json())
-                .then((resp) => console.log(resp))
-                .catch((err) => console.log(err));
-
-            setAddHorse(false);
-            return;
+            });
+            if (!response.ok) {
+                throw new Error('Cannot add horse to database');
+            }
+            await response.json();
+        } catch (error) {
+            console.error('Cannot add horse to database:', error);
+        } finally {
+            handleCloseDialog();
         }
-        setAddHorse(false);
     };
 
     useEffect(() => {
         console.log('Reading horses...');
-        fetch('http://localhost:3000/v1/horse')
-            .then(async (res) => await res.json())
-            .then((resp: Horse[]) => {
-                setHorses(resp);
-            })
+        fetchHorses()
+            .then((resp) => console.log(resp))
             .catch((err) => console.error(err));
     }, []);
 
     return (
         <Box>
-            {addHorse && <HorseDetailsDialog open={addHorse} onClose={AddHorseToDatabase} />}
+            {addHorse && <HorseDetailsDialog open={addHorse} onClose={handleAddHorse} />}
             <Stack direction='row' spacing={5} mt={2} justifyContent={'space-between'}>
                 {horses.map((value, index) => {
                     return (

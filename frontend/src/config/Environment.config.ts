@@ -18,7 +18,7 @@ export enum DATA_SOURCE {
 
 const environments: Record<DATA_SOURCE, EnvironmentScheme> = {
     [DATA_SOURCE.LOCALHOST]: {
-        url: 'http://localhost:3000/api',
+        url: 'http://localhost:3000/v1',
         host: 'localhost',
         scheme: 'http://',
         subdomain: '',
