@@ -5,6 +5,7 @@ import { NextFunction, Request, Response } from 'express';
 export class HeaderMiddleware implements NestMiddleware {
     use(_: Request, res: Response, next: NextFunction) {
         res.header('Content-Type', 'application/json');
+        res.header('Accept', 'application/json');
         next();
     }
 }
