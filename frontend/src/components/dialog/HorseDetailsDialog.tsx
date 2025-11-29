@@ -91,15 +91,15 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
             });
 
             if (!response.ok) {
-                throw new Error(`Błąd serwera: ${response.statusText}`);
+                throw new Error(`Server error: ${response.statusText}`);
             }
 
             const newHorse = (await response.json()) as Horse;
-            console.log('Koń dodany:', newHorse);
+            console.log('Horse added successfully:', newHorse);
 
             props.onClose();
         } catch (error) {
-            console.error('Nie udało się dodać konia:', error);
+            console.error('Cannot add a horse:', error);
         }
     };
 
@@ -245,7 +245,9 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     <Button
                         autoFocus
                         onClick={() => {
-                            handleSubmit();
+                            handleSubmit()
+                                .then(() => console.log('Submit end'))
+                                .catch((err) => console.error(err));
                         }}
                     >
                         Save changes

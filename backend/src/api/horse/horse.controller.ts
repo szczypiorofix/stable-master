@@ -2,14 +2,10 @@ import {
     BadRequestException,
     Body,
     Controller,
-    FileTypeValidator,
     Get,
-    MaxFileSizeValidator,
-    ParseFilePipe,
     Post,
     UploadedFile,
     UseInterceptors,
-    ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -57,11 +53,11 @@ export class HorseController {
                 const maxSize = 5 * 1024 * 1024;
 
                 if (!allowedTypes.includes(file.mimetype)) {
-                    return cb(new BadRequestException('Nieprawidłowy typ pliku. Dozwolone: JPG, PNG, WebP'), false);
+                    return cb(new BadRequestException('Incorrect file type. Allowed only: JPG, PNG, WebP'), false);
                 }
 
                 if (file.size > maxSize) {
-                    return cb(new BadRequestException('Plik za duży (max 5MB)'), false);
+                    return cb(new BadRequestException('File size too big (max 5MB)'), false);
                 }
 
                 cb(null, true);

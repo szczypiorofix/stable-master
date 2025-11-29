@@ -29,7 +29,7 @@ export function Horses(): JSX.Element {
         try {
             const response = await fetch(`${apiUrl}/horse`);
             if (!response.ok) {
-                throw new Error('Nie udało się pobrać danych');
+                throw new Error('Cannot find horses. Response error.');
             }
             const data: Horse[] = (await response.json()) as Horse[];
 
@@ -37,7 +37,7 @@ export function Horses(): JSX.Element {
 
             setHorses(data);
         } catch (error) {
-            console.error('Błąd podczas pobierania koni:', error);
+            console.error('Response error: ', error);
         }
     };
 
