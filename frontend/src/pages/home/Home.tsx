@@ -1,5 +1,4 @@
 import { JSX } from 'react';
-
 import { ContactSupport } from '@mui/icons-material';
 import { Box, Card, CardMedia, List, ListItem, ListItemIcon, Paper, Typography } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
