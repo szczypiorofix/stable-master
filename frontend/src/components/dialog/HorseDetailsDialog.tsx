@@ -24,6 +24,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { Horse } from '../../@types';
+import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
 import { HORSE_SEX } from '../../shared/enums';
 import { getListOfHorseSexes } from '../../shared/helpers';
 
@@ -38,7 +39,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export interface HorseDetailsDialogProps {
     open: boolean;
-    onClose: (horse: Horse | null) => void;
+    onClose: () => void;
 }
 
 export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
@@ -57,6 +58,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         name: '',
         id: 0,
     });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleInputChange = <K extends keyof Horse>(key: K, value: Horse[K]) => {
         setHorse((prevHorse) => ({
@@ -65,10 +67,46 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         }));
     };
 
+    const handleSubmit = async () => {
+        const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
+
+        const formData = new FormData();
+
+        if (selectedFile) {
+            formData.append('avatarFile', selectedFile, selectedFile.name);
+        }
+
+        formData.append('name', horse.name);
+        formData.append('breed', horse.breed);
+        formData.append('color', horse.color);
+        formData.append('sex', horse.sex);
+        formData.append('birthdate', horse.birthdate.toISOString());
+        formData.append('age', horse.age.toString());
+        formData.append('description', horse.description);
+
+        try {
+            const response = await fetch(`${apiUrl}/horse`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Błąd serwera: ${response.statusText}`);
+            }
+
+            const newHorse = (await response.json()) as Horse;
+            console.log('Koń dodany:', newHorse);
+
+            props.onClose();
+        } catch (error) {
+            console.error('Nie udało się dodać konia:', error);
+        }
+    };
+
     return (
         <Fragment>
             <BootstrapDialog
-                onClose={() => props.onClose(null)}
+                onClose={() => props.onClose()}
                 aria-labelledby='customized-dialog-title'
                 open={props.open}
             >
@@ -77,7 +115,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                 </DialogTitle>
                 <IconButton
                     aria-label='close'
-                    onClick={() => props.onClose(null)}
+                    onClick={() => props.onClose()}
                     sx={(theme) => ({
                         position: 'absolute',
                         right: 8,
@@ -153,6 +191,31 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                         />
                     </Box>
 
+                    <Divider />
+
+                    <Box mt={2} mb={2}>
+                        <Button component='label' variant='outlined'>
+                            Wybierz awatar
+                            <input
+                                type='file'
+                                hidden
+                                accept='image/png, image/jpeg, image/gif'
+                                onChange={(e) => {
+                                    if (e.target.files && e.target.files.length > 0) {
+                                        setSelectedFile(e.target.files[0]);
+                                    } else {
+                                        setSelectedFile(null);
+                                    }
+                                }}
+                            />
+                        </Button>
+                        {selectedFile && (
+                            <Typography variant='body2' sx={{ display: 'inline', ml: 2 }}>
+                                {selectedFile.name}
+                            </Typography>
+                        )}
+                    </Box>
+
                     <Box mt={2} mb={2}>
                         <FormControl fullWidth margin='normal' size='medium'>
                             <InputLabel id='horse-sex-select-label' variant={'outlined'}>
@@ -179,7 +242,12 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={() => props.onClose(horse)}>
+                    <Button
+                        autoFocus
+                        onClick={() => {
+                            handleSubmit();
+                        }}
+                    >
                         Save changes
                     </Button>
                 </DialogActions>

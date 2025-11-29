@@ -29,19 +29,20 @@ export function Horses(): JSX.Element {
         try {
             const response = await fetch(`${apiUrl}/horse`);
             if (!response.ok) {
-                throw new Error('Can not find horses');
+                throw new Error('Nie udało się pobrać danych');
             }
             const data: Horse[] = (await response.json()) as Horse[];
+
+            console.log('horses: ', data);
+
             setHorses(data);
         } catch (error) {
-            console.error('Fetch horses error:', error);
+            console.error('Błąd podczas pobierania koni:', error);
         }
     };
 
-    const handleAddHorse = (horse: Horse | null) => {
-        addHorseToDatabase(horse)
-            .then((resp) => console.log(resp))
-            .catch((err) => console.error(err));
+    const handleAddHorse = () => {
+        handleCloseDialog();
     };
 
     const handleCloseDialog = () => {
@@ -49,34 +50,6 @@ export function Horses(): JSX.Element {
         fetchHorses()
             .then(() => console.log('Horses fetched'))
             .catch((err) => console.error(err));
-    };
-
-    const addHorseToDatabase = async (horse: Horse | null) => {
-        console.log('New horse... ', horse);
-        if (!horse) {
-            handleCloseDialog();
-            return;
-        }
-
-        console.log('Adding horse to database...');
-
-        try {
-            const response = await fetch(`${apiUrl}/horse`, {
-                method: 'POST',
-                body: JSON.stringify(horse),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Cannot add horse to database');
-            }
-            await response.json();
-        } catch (error) {
-            console.error('Cannot add horse to database:', error);
-        } finally {
-            handleCloseDialog();
-        }
     };
 
     useEffect(() => {
@@ -93,14 +66,21 @@ export function Horses(): JSX.Element {
                 {horses.map((value, index) => {
                     return (
                         <Item key={'horse_' + index}>
-                            <HorseCard horse={value} />
+                            <HorseCard
+                                horse={{
+                                    ...value,
+                                    avatar: value.avatar
+                                        ? `http://localhost:3000/${value.avatar}`
+                                        : '/src/assets/images/horse_placeholder.jpg', // placeholder
+                                }}
+                            />
                         </Item>
                     );
                 })}
             </Stack>
             <Box pt={2} pb={2} display={'flex'} justifyContent={'flex-end'}>
                 <Tooltip title='Add horse' arrow>
-                    <Fab color='primary' aria-label='add' /* onClick={() => setAddHorse(true)} */>
+                    <Fab color='primary' aria-label='add' onClick={() => setAddHorse(true)}>
                         <AddIcon />
                     </Fab>
                 </Tooltip>

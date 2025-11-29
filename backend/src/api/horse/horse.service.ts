@@ -14,28 +14,22 @@ export class HorseService {
     ) {}
 
     /**
-     * Pobiera listę wszystkich koni.
-     * Możesz tu dodać obsługę paginacji lub filtrowania.
+     * Get all horses
      */
     async findAll(): Promise<HorseEntity[]> {
-        // Aby dołączyć relacje (np. właściciela), użyj:
-        // return this.horseRepository.find({ relations: ['owner'] });
         return this.horseRepository.find();
     }
 
     /**
-     * Tworzy nowego konia w bazie danych.
+     * Add new horse to database
      */
-    async create(createHorseDto: CreateHorseDto): Promise<HorseEntity> {
-        // Tworzymy nową instancję encji na podstawie DTO
+    async create(createHorseDto: CreateHorseDto, avatarPath: string | null): Promise<HorseEntity> {
         const newHorse = this.horseRepository.create({
             ...createHorseDto,
-            active: 1, // Ustawiamy domyślną wartość, jeśli nie ma jej w DTO
-            // Jeśli DTO zawierałoby ownerId, tutaj musiałbyś znaleźć encję Ownera
-            // i przypisać ją do newHorse.owner
+            active: 1,
+            avatar: avatarPath ? avatarPath : undefined,
         });
 
-        // Zapisujemy nowego konia do bazy danych
         return this.horseRepository.save(newHorse);
     }
 }

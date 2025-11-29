@@ -1,6 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 
 import databaseRegisteredConfig, { DatabaseConfig, defaultDatabaseConfig } from '../config/database.config';
 import { HeaderMiddleware } from '../middleware/header.middleware';
@@ -35,6 +37,10 @@ import { ApiService } from './api.service';
                     logger: 'advanced-console',
                 };
             },
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(process.cwd(), 'uploads'),
+            serveRoot: '/public',
         }),
         HorseModule,
     ],

@@ -23,7 +23,4 @@ export class CreateHorseDto {
 
     @IsInt()
     age: number;
-
-    @IsString()
-    avatar: string;
 }
