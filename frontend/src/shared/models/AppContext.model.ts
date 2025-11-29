@@ -1,8 +1,8 @@
-import { AppView } from '../enums';
+import { APP_VIEW } from '../enums';
 
 export interface AppStateModel {
     isSideNavOpen: boolean;
-    view: AppView;
+    view: APP_VIEW;
     stableName: string;
     stableAddress: string;
 }
