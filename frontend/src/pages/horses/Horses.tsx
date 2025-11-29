@@ -47,7 +47,7 @@ export function Horses(): JSX.Element {
     const handleCloseDialog = () => {
         setAddHorse(false);
         fetchHorses()
-            .then((resp) => console.log(resp))
+            .then(() => console.log('Horses fetched'))
             .catch((err) => console.error(err));
     };
 
@@ -82,7 +82,7 @@ export function Horses(): JSX.Element {
     useEffect(() => {
         console.log('Reading horses...');
         fetchHorses()
-            .then((resp) => console.log(resp))
+            .then(() => console.log('Horse fetch end.'))
             .catch((err) => console.error(err));
     }, []);
 
@@ -100,7 +100,7 @@ export function Horses(): JSX.Element {
             </Stack>
             <Box pt={2} pb={2} display={'flex'} justifyContent={'flex-end'}>
                 <Tooltip title='Add horse' arrow>
-                    <Fab color='primary' aria-label='add' onClick={() => setAddHorse(true)}>
+                    <Fab color='primary' aria-label='add' /* onClick={() => setAddHorse(true)} */>
                         <AddIcon />
                     </Fab>
                 </Tooltip>
