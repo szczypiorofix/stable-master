@@ -195,7 +195,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
 
                     <Box mt={2} mb={2}>
                         <Button component='label' variant='outlined'>
-                            Wybierz awatar
+                            Set awatar
                             <input
                                 type='file'
                                 hidden

@@ -6,8 +6,9 @@ import Tooltip from '@mui/material/Tooltip';
 
 import { Horse } from '../../@types';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
-import { HorseDetailsDialog } from '../../components/dialog/HorseDetailsDialog.tsx';
 import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
+
+import { HorseDetailsDialog } from './HorseDetailsDialog.tsx';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -70,7 +71,7 @@ export function Horses(): JSX.Element {
                                 horse={{
                                     ...value,
                                     avatar: value.avatar
-                                        ? `http://localhost:3000/${value.avatar}`
+                                        ? `${apiUrl}/${value.avatar}`
                                         : '/src/assets/images/horse_placeholder.jpg', // placeholder
                                 }}
                             />
