@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 
 import { DictionaryCategory } from '../../dictionary/dictionary-category.enum';
+import { User } from '../../shared/decorators/user.decorator';
 import { DictionaryEntry } from '../../typeorm';
 
 import { CreateDictionaryEntryDto } from './create-dictionary.dto';
@@ -11,20 +12,23 @@ export class DictionaryController {
     constructor(private readonly dictionaryService: DictionaryService) {}
 
     @Get()
-    async findAll(@Query('category') category: DictionaryCategory, @Req() req): Promise<DictionaryEntry[]> {
-        const stableId = 1;
+    async findAll(
+        @Query('category') category: DictionaryCategory,
+        @User('stableId') stableId: number,
+    ): Promise<DictionaryEntry[]> {
         return this.dictionaryService.findAll(category, stableId);
     }
 
     @Post()
-    async create(@Body() createDto: CreateDictionaryEntryDto, @Req() req): Promise<DictionaryEntry> {
-        const stableId = 1;
+    async create(
+        @Body() createDto: CreateDictionaryEntryDto,
+        @User('stableId') stableId: number,
+    ): Promise<DictionaryEntry> {
         return this.dictionaryService.create(createDto, stableId);
     }
 
     @Delete(':id')
-    async remove(@Param('id', ParseIntPipe) id: number, @Req() req): Promise<DictionaryEntry> {
-        const stableId = 1;
+    async remove(@Param('id', ParseIntPipe) id: number, @User('stableId') stableId: number): Promise<DictionaryEntry> {
         return this.dictionaryService.remove(id, stableId);
     }
 }
