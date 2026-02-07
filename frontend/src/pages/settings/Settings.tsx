@@ -17,7 +17,7 @@ export function Settings(): JSX.Element {
         <div>
             <h1>Settings page</h1>
 
-            <SettingsTabs></SettingsTabs>
+            <SettingsTabs />
 
             <h2>Open dialog:</h2>
             <CustomButton onClick={() => setIsSaveOpen(true)}>Start</CustomButton>
