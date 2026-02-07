@@ -9,6 +9,7 @@ import { HeaderMiddleware } from '../middleware/header.middleware';
 import { LoggerMiddleware } from '../middleware/logger.middleware';
 import { allEntities } from '../typeorm';
 
+import { DictionaryModule } from './dictionary/dictionary.module';
 import { HorseModule } from './horse/horse.module';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
@@ -43,6 +44,7 @@ import { ApiService } from './api.service';
             serveRoot: '/public',
         }),
         HorseModule,
+        DictionaryModule,
     ],
     controllers: [ApiController],
     providers: [ApiService],
