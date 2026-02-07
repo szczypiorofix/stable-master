@@ -4,6 +4,8 @@ import { Button, Typography } from '@mui/material';
 import { CustomButton } from '../../components/button/CustomButton.tsx';
 import { BaseDialog } from '../../components/dialog/BaseDialog.tsx';
 
+import { SettingsTabs } from './SettingsTabs.tsx';
+
 export function Settings(): JSX.Element {
     const [isSaveOpen, setIsSaveOpen] = useState(false);
 
@@ -14,6 +16,9 @@ export function Settings(): JSX.Element {
     return (
         <div>
             <h1>This is Settings page</h1>
+
+            <SettingsTabs></SettingsTabs>
+
             <h2>Open dialog:</h2>
             <CustomButton onClick={() => setIsSaveOpen(true)}>Start</CustomButton>
             {isSaveOpen && (
