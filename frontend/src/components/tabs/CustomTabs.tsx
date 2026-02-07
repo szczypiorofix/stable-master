@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
 import { CustomTabsProps } from './CustomTabs.types.ts';
+import { Typography } from '@mui/material';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -37,6 +38,7 @@ export function CustomTabs(props: CustomTabsProps) {
 
     return (
         <Box sx={{ width: '100%', backgroundColor: 'white' }}>
+            {props.title && <Typography>{props.title}</Typography>}
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={currentTab} onChange={handleTabChange} aria-label='basic tabs example'>
                     {props.items.map((item, index) => (

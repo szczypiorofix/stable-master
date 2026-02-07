@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { StableEntity } from './stable.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -34,4 +36,7 @@ export class UserEntity {
 
     @Column({ nullable: true, default: null })
     lastlogin: Date;
+
+    @ManyToOne(() => StableEntity, (stable) => stable.users)
+    stable: StableEntity;
 }

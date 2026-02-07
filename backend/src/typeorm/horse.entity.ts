@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 
 import { FarrierVisitEntity } from './farriervisit.entity';
 import { OwnerEntity } from './owner.entity';
+import { StableEntity } from './stable.entity';
 import { VetVisitEntity } from './vetvisit.entity';
 
 export enum HORSE_SEX {
@@ -50,4 +51,7 @@ export class HorseEntity {
 
     @OneToMany(() => FarrierVisitEntity, (visit) => visit.horse)
     farrierVisits: FarrierVisitEntity[];
+
+    @ManyToOne(() => StableEntity, (stable) => stable.users)
+    stable: StableEntity;
 }
