@@ -7,9 +7,7 @@ import { HorseController } from './horse.controller';
 import { HorseService } from './horse.service';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([HorseEntity]), // Udostępnia repozytorium HorseEntity
-    ],
+    imports: [TypeOrmModule.forFeature([HorseEntity])],
     controllers: [HorseController],
     providers: [HorseService],
 })
