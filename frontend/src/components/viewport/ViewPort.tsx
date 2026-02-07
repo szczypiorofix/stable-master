@@ -1,5 +1,4 @@
 import { JSX } from 'react';
-
 import { Box, Container } from '@mui/material';
 
 import { useGlobalAppContext } from '../../context/AppContext.tsx';
@@ -19,9 +18,7 @@ export function ViewPort(): JSX.Element {
         <Box>
             <ToolBar />
             <SideNav />
-            <Container maxWidth='lg'>
-                {resolveView(contextState.view)}
-            </Container>
+            <Container maxWidth='lg'>{resolveView(contextState.view)}</Container>
             <Footer />
         </Box>
     );

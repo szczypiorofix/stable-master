@@ -1,5 +1,6 @@
-import { API_VERSION } from './Config.data';
 import { ServiceDetails } from '../../@types';
+
+import { API_VERSION } from './Config.data';
 
 export const apiServiceDetails: ServiceDetails = {
     name: 'API Service',

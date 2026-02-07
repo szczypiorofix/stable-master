@@ -1,5 +1,4 @@
 import { JSX } from 'react';
-
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -30,11 +29,7 @@ export function ToolBar(): JSX.Element {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant='h6'
-                        component='div'
-                        sx={{ flexGrow: 1 }}
-                    >
+                    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
                         Stable Master
                     </Typography>
                 </Toolbar>

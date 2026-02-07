@@ -6,8 +6,7 @@ import { AppStateModel } from '../shared/models';
 import { AppContext } from './AppContext.tsx';
 
 export function AppContextProvider(props: PropsWithChildren): JSX.Element {
-    const [contextState, setContextState] =
-        useState<AppStateModel>(defaultAppState);
+    const [contextState, setContextState] = useState<AppStateModel>(defaultAppState);
     return (
         <AppContext.Provider
             value={{

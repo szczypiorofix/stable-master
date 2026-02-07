@@ -1,10 +1,10 @@
 import { JSX } from 'react';
 
-import { AppView } from '../enums';
+import { APP_VIEW } from '../enums';
 
 export interface Route {
     name: string;
-    view: AppView;
+    view: APP_VIEW;
     page: JSX.Element;
     icon: JSX.Element;
 }

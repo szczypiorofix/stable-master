@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
 
-import { Button } from '../components/button/Button.component.tsx';
+import { Button } from '../components/button/Button.component';
 
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';

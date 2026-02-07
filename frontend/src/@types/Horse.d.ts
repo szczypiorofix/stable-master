@@ -1,16 +1,21 @@
-import { Person } from './Person';
+import { HORSE_SEX } from '../shared/enums';
+
+import { FarrierVisit } from './FarrierVisit';
+import { Owner } from './Owner';
+import { VetVisit } from './VetVisit';
 
 export interface Horse {
-    id: string;
-    name: strin;
-    dateOfBirth: string;
+    id: number;
+    name: string;
+    active: number;
     breed: string;
+    birthdate: Date;
     color: string;
-    owner: Person;
+    sex: HORSE_SEX;
+    avatar: string;
     description: string;
     age: number;
-    sex: string;
-    avatar: string;
-    gallery: string[];
-    onPaddock: boolean;
+    owner: Owner;
+    vetVisits: VetVisit[];
+    farrierVisits: FarrierVisit[];
 }

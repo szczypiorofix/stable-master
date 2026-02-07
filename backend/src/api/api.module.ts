@@ -1,16 +1,24 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+
+import databaseRegisteredConfig, { DatabaseConfig, defaultDatabaseConfig } from '../config/database.config';
+import { HeaderMiddleware } from '../middleware/header.middleware';
+import { LoggerMiddleware } from '../middleware/logger.middleware';
+import { allEntities } from '../typeorm';
+
+import { HorseModule } from './horse/horse.module';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoggerMiddleware } from '../middleware/logger.middleware';
-import { HeaderMiddleware } from '../middleware/header.middleware';
-import databaseRegisteredConfig, { DatabaseConfig, defaultDatabaseConfig } from '../config/database.config';
-import { allEntities } from '../typeorm';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ isGlobal: true, load: [databaseRegisteredConfig] }),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [databaseRegisteredConfig],
+        }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
@@ -30,6 +38,11 @@ import { allEntities } from '../typeorm';
                 };
             },
         }),
+        ServeStaticModule.forRoot({
+            rootPath: join(process.cwd(), 'uploads'),
+            serveRoot: '/public',
+        }),
+        HorseModule,
     ],
     controllers: [ApiController],
     providers: [ApiService],
