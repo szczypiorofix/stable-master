@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
+import { CustomTabsProps } from './CustomTabs.types.ts';
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -26,41 +28,29 @@ function CustomTabPanel(props: TabPanelProps) {
     );
 }
 
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
-export interface CustomTabItem {
-    title: string;
-    content: React.ReactNode;
-}
-
-export interface CustomTabsProps extends React.PropsWithChildren {
-    title: string;
-    items: Array<CustomTabItem>;
-}
-
 export function CustomTabs(props: CustomTabsProps) {
-    const [value, setValue] = useState(0);
+    const [currentTab, setCurrentTab] = useState(0);
 
-    const handleChange = (_event: SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+    const handleTabChange = (_event: SyntheticEvent, newValue: number) => {
+        setCurrentTab(newValue);
     };
 
     return (
         <Box sx={{ width: '100%', backgroundColor: 'white' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
+                <Tabs value={currentTab} onChange={handleTabChange} aria-label='basic tabs example'>
                     {props.items.map((item, index) => (
-                        <Tab key={'tab' + index} label={item.title} {...a11yProps(index)} />
+                        <Tab
+                            key={'tab' + index}
+                            label={item.title}
+                            id={`simple-tab-${index}`}
+                            aria-controls={`simple-tabpanel-${index}`}
+                        />
                     ))}
                 </Tabs>
             </Box>
             {props.items.map((item, index) => (
-                <CustomTabPanel key={'tabcontent' + index} value={value} index={index}>
+                <CustomTabPanel key={'tabcontent' + index} value={currentTab} index={index}>
                     {item.content}
                 </CustomTabPanel>
             ))}

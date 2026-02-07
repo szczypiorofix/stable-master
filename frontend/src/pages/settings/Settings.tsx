@@ -15,7 +15,7 @@ export function Settings(): JSX.Element {
     };
     return (
         <div>
-            <h1>This is Settings page</h1>
+            <h1>Settings page</h1>
 
             <SettingsTabs></SettingsTabs>
 
