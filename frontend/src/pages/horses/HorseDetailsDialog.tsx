@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
     Box,
@@ -25,10 +25,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { Horse } from '../../@types';
+import { DictionarySelect } from '../../components/select/DictionarySelect.tsx';
 import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
 import { HORSE_SEX } from '../../shared/enums';
 import { getListOfHorseSexes } from '../../shared/helpers';
-import { DictionaryEntry } from '../../shared/models';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -62,13 +62,19 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         id: 0,
     });
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [coatOptions, setCoatOptions] = useState<DictionaryEntry[]>([]);
 
     const handleInputChange = <K extends keyof Horse>(key: K, value: Horse[K]) => {
         setHorse((prevHorse) => ({
             ...prevHorse,
             [key]: value,
         }));
+    };
+
+    const handleDictionaryChange = (event: SelectChangeEvent) => {
+        const name = event.target.name as keyof Horse;
+        const value = event.target.value;
+
+        handleInputChange(name, value);
     };
 
     const handleSubmit = async () => {
@@ -104,27 +110,6 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
             console.error('Cannot add a horse:', error);
         }
     };
-
-    const handleCoatSelectChange = (event: SelectChangeEvent) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setHorse((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    useEffect(() => {
-        if (props.open) {
-            fetch(`${apiUrl}/dictionary?category=HORSE_COAT`)
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    setCoatOptions(data);
-                })
-                .catch((err) => console.error('An error occurred while retrieving horse coat data: ', err));
-        }
-    }, [props.open]);
 
     return (
         <Fragment>
@@ -163,38 +148,23 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField
-                            id='horse-breed'
+                        <DictionarySelect
+                            category='HORSE_BREED'
                             label='Breed'
-                            variant='standard'
+                            name='breed'
                             value={horse.breed}
-                            onChange={(e) => handleInputChange('breed', e.target.value)}
-                            fullWidth
+                            onChange={handleDictionaryChange}
                         />
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <FormControl fullWidth margin='dense'>
-                            <InputLabel id='coat-select-label'>Coat</InputLabel>
-                            <Select
-                                labelId='coat-select-label'
-                                id='coat-select'
-                                name='coat'
-                                value={horse.coat}
-                                label='Coat'
-                                onChange={handleCoatSelectChange}
-                            >
-                                {coatOptions.map((option) => (
-                                    <MenuItem key={option.id} value={option.label}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-
-                                {horse.coat && !coatOptions.find((c) => c.label === horse.coat) && (
-                                    <MenuItem value={horse.coat}>{horse.coat}</MenuItem>
-                                )}
-                            </Select>
-                        </FormControl>
+                        <DictionarySelect
+                            category='HORSE_COAT'
+                            label='Coat'
+                            name='coat'
+                            value={horse.coat}
+                            onChange={handleDictionaryChange}
+                        />
                     </Box>
 
                     <Box mt={2} mb={2}>
