@@ -85,7 +85,7 @@ export function DictionaryEditor({ title, items, onAdd, onDelete }: DictionaryEd
                                 label='System'
                                 size='small'
                                 variant='outlined'
-                                sx={{ mr: 2, height: 20, fontSize: '0.7rem' }}
+                                sx={{ mr: 2, height: 20, fontSize: '0.7rem', userSelect: 'none' }}
                             />
                         )}
                     </ListItem>
