@@ -7,8 +7,7 @@ import {
     VerticalShades as VerticalShadesIcon,
 } from '@mui/icons-material';
 
-import { Home, Horses, Schedules, Settings, Stalls } from '../../pages';
-import { Staff } from '../../pages/staff/Staff.tsx';
+import { Home, Horses, Schedules, Settings, Staff, Stalls } from '../../pages';
 import { APP_VIEW } from '../enums';
 import { RouteModel } from '../models';
 

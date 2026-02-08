@@ -1,66 +1,4 @@
-import { Horse, Person, Stable } from '../src/@types';
-import { HORSE_SEX, USER_ROLE } from '../src/shared/enums';
-
-export const people: Person[] = [
-    {
-        id: '1',
-        firstName: 'John',
-        lastName: 'Doe',
-        displayName: 'John Doe',
-        address: '123 Main St',
-        sex: 'M',
-        isRider: true,
-        role: USER_ROLE.RIDER,
-    },
-];
-
-export const horses: Horse[] = [
-    {
-        id: 1,
-        name: 'Navarro',
-        breed: 'Thoroughbred',
-        color: 'Bay',
-        owner: people[0],
-        active: 1,
-        birthdate: new Date(),
-        vetVisits: [],
-        farrierVisits: [],
-        age: 11,
-        sex: HORSE_SEX.STALLION,
-        avatar: '/src/assets/images/horse1.jpg',
-        description: "This is a horse. It's a very nice horse.",
-    },
-    {
-        id: 2,
-        name: 'Hank',
-        birthdate: new Date(),
-        breed: 'Quarter Horse',
-        color: 'Palomino',
-        owner: people[0],
-        active: 1,
-        vetVisits: [],
-        farrierVisits: [],
-        age: 6,
-        sex: HORSE_SEX.MARE,
-        description: "This is another horse. It's also a very nice horse.",
-        avatar: '/src/assets/images/horse2.jpg',
-    },
-    {
-        id: 3,
-        name: 'Buddy',
-        birthdate: new Date(),
-        breed: 'Paint',
-        color: 'Pinto',
-        owner: people[0],
-        age: 3,
-        avatar: '/src/assets/images/horse3.jpg',
-        description: "This is a third horse. It's also a very nice horse.",
-        sex: HORSE_SEX.GELDING,
-        farrierVisits: [],
-        vetVisits: [],
-        active: 1,
-    },
-];
+import { Stable } from '../src/@types';
 
 export const stables: Stable[] = [
     {
@@ -83,7 +21,7 @@ export const stables: Stable[] = [
             longitude: 0,
         },
         gallery: [],
-        team: people,
-        horses: horses,
+        team: [],
+        horses: [],
     },
 ];
