@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
     Box,
@@ -14,6 +14,7 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    SelectChangeEvent,
     styled,
     TextField,
     Typography,
@@ -27,6 +28,7 @@ import { Horse } from '../../@types';
 import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
 import { HORSE_SEX } from '../../shared/enums';
 import { getListOfHorseSexes } from '../../shared/helpers';
+import { DictionaryEntry } from '../../shared/models';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -43,12 +45,13 @@ export interface HorseDetailsDialogProps {
 }
 
 export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
+    const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
     const [horse, setHorse] = useState<Horse>({
         sex: HORSE_SEX.MARE,
         farrierVisits: [],
         owner: undefined,
         active: 0,
-        color: '',
+        coat: '',
         vetVisits: [],
         birthdate: new Date(),
         description: '',
@@ -59,6 +62,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         id: 0,
     });
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [coatOptions, setCoatOptions] = useState<DictionaryEntry[]>([]);
 
     const handleInputChange = <K extends keyof Horse>(key: K, value: Horse[K]) => {
         setHorse((prevHorse) => ({
@@ -68,8 +72,6 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
     };
 
     const handleSubmit = async () => {
-        const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
-
         const formData = new FormData();
 
         if (selectedFile) {
@@ -78,7 +80,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
 
         formData.append('name', horse.name);
         formData.append('breed', horse.breed);
-        formData.append('color', horse.color);
+        formData.append('coat', horse.coat);
         formData.append('sex', horse.sex);
         formData.append('birthdate', horse.birthdate.toISOString());
         formData.append('age', horse.age.toString());
@@ -102,6 +104,27 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
             console.error('Cannot add a horse:', error);
         }
     };
+
+    const handleCoatSelectChange = (event: SelectChangeEvent) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setHorse((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    useEffect(() => {
+        if (props.open) {
+            fetch(`${apiUrl}/dictionary?category=HORSE_COAT`)
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setCoatOptions(data);
+                })
+                .catch((err) => console.error('An error occurred while retrieving horse coat data: ', err));
+        }
+    }, [props.open]);
 
     return (
         <Fragment>
@@ -151,14 +174,27 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
                     </Box>
 
                     <Box mt={2} mb={2}>
-                        <TextField
-                            id='horse-color'
-                            label='Color'
-                            variant='standard'
-                            value={horse.color}
-                            onChange={(e) => handleInputChange('color', e.target.value)}
-                            fullWidth
-                        />
+                        <FormControl fullWidth margin='dense'>
+                            <InputLabel id='coat-select-label'>Coat</InputLabel>
+                            <Select
+                                labelId='coat-select-label'
+                                id='coat-select'
+                                name='coat'
+                                value={horse.coat}
+                                label='Coat'
+                                onChange={handleCoatSelectChange}
+                            >
+                                {coatOptions.map((option) => (
+                                    <MenuItem key={option.id} value={option.label}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+
+                                {horse.coat && !coatOptions.find((c) => c.label === horse.coat) && (
+                                    <MenuItem value={horse.coat}>{horse.coat}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
                     </Box>
 
                     <Box mt={2} mb={2}>

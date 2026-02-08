@@ -14,7 +14,7 @@ import {
 
 import { useGlobalAppContext } from '../../context/AppContext.tsx';
 import { getAllRoutesAsList } from '../../shared/helpers';
-import { Route } from '../../shared/models';
+import { RouteModel } from '../../shared/models';
 
 import stableMasterLogo from '/stablemaster.png';
 
@@ -25,7 +25,7 @@ export function SideNav(): JSX.Element {
         setContextState({ ...contextState, isSideNavOpen: isOpen });
     };
 
-    const changeView = (route: Route) => {
+    const changeView = (route: RouteModel) => {
         setContextState({
             ...contextState,
             isSideNavOpen: false,

@@ -10,7 +10,7 @@ export interface Horse {
     active: number;
     breed: string;
     birthdate: Date;
-    color: string;
+    coat: string;
     sex: HORSE_SEX;
     avatar: string;
     description: string;

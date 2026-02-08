@@ -28,8 +28,8 @@ export class HorseEntity {
     @Column()
     birthdate: Date;
 
-    @Column({ length: 60 })
-    color: string;
+    @Column()
+    coat: string;
 
     @Column('enum', { enum: HORSE_SEX })
     sex: string;

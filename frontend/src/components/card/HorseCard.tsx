@@ -25,6 +25,9 @@ export function HorseCard(props: { horse: Horse }): JSX.Element {
                         sex: {props.horse.sex},
                     </Typography>
                     <Typography gutterBottom variant='body2' pr={1}>
+                        coat: {props.horse.coat},
+                    </Typography>
+                    <Typography gutterBottom variant='body2' pr={1}>
                         age: {props.horse.age}
                     </Typography>
                 </Box>

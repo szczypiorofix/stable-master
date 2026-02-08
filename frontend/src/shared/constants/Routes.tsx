@@ -10,9 +10,9 @@ import {
 import { Home, Horses, Schedules, Settings, Stalls } from '../../pages';
 import { Staff } from '../../pages/staff/Staff.tsx';
 import { APP_VIEW } from '../enums';
-import { Route } from '../models';
+import { RouteModel } from '../models';
 
-export const routes: Record<APP_VIEW, Route> = {
+export const routes: Record<APP_VIEW, RouteModel> = {
     [APP_VIEW.HOME]: {
         name: 'Home',
         view: APP_VIEW.HOME,
