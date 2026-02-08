@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 
-import { DictionaryEditor } from './DictionaryEditor';
 import { DATA_SOURCE, getEnvironmentDetails } from '../../../../config/Environment.config.ts';
 
-const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
-// Adres Twojego backendu (w przyszłości warto przenieść do pliku .env)
-const API_URL = 'apiUrl/dictionary';
+import { DictionaryEditor } from './DictionaryEditor';
 
-// Typ danych zgodny z tym co zwraca backend
+const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
+
 interface DictionaryEntry {
     id: number;
     label: string;
@@ -21,91 +19,82 @@ export function DefinesSettingsTab() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Pomocnicza funkcja do pobierania tokena (zakładam, że trzymasz go w localStorage)
     const getAuthHeaders = () => {
-        const token = localStorage.getItem('jwt_token'); // Sprawdź czy tak nazywasz klucz
+        const token = localStorage.getItem('jwt_token');
         return {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}`, // Odkomentuj, gdy już zepniesz logowanie
+            // 'Authorization': `Bearer ${token}`,
         };
     };
 
-    // 1. Pobieranie danych (GET)
     const fetchCoats = async () => {
         setIsLoading(true);
         try {
-            // Pamiętaj o parametrze ?category=HORSE_COAT
-            const response = await fetch(`${API_URL}/dictionary?category=HORSE_COAT`, {
+            const response = await fetch(`${apiUrl}/dictionary?category=HORSE_COAT`, {
                 method: 'GET',
                 headers: getAuthHeaders(),
             });
 
-            if (!response.ok) throw new Error('Błąd pobierania danych');
+            if (!response.ok) throw new Error('An error occurred while fetching dictionaries (coats).');
 
             const data = await response.json();
             setCoatColors(data);
         } catch (err) {
             console.error(err);
-            setError('Nie udało się pobrać listy maści.');
+            setError('Cannot get horse coats dictionary');
         } finally {
             setIsLoading(false);
         }
     };
 
-    // Pobierz dane przy pierwszym renderze
     useEffect(() => {
         fetchCoats();
     }, []);
 
-    // 2. Dodawanie wpisu (POST)
     const handleAddCoat = async (label: string) => {
         try {
-            const response = await fetch(`${API_URL}/dictionary`, {
+            const response = await fetch(`${apiUrl}/dictionary`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: JSON.stringify({
                     label: label,
-                    category: 'HORSE_COAT', // Ważne: musimy wysłać kategorię
+                    category: 'HORSE_COAT',
                 }),
             });
 
-            if (!response.ok) throw new Error('Błąd zapisu');
+            if (!response.ok) throw new Error('An error occurred while adding dictionary');
 
-            // Po udanym dodaniu odświeżamy listę
             await fetchCoats();
         } catch (err) {
             console.error(err);
-            alert('Nie udało się dodać maści');
+            alert('Cannot add horse coats dictionary');
         }
     };
 
-    // 3. Usuwanie wpisu (DELETE)
     const handleDeleteCoat = async (id: number) => {
-        if (!window.confirm('Czy na pewno chcesz usunąć tę pozycję?')) return;
+        if (!window.confirm('Are you sure you want to remove this entry?')) return;
 
         try {
-            const response = await fetch(`${API_URL}/dictionary/${id}`, {
+            const response = await fetch(`${apiUrl}/dictionary/${id}`, {
                 method: 'DELETE',
                 headers: getAuthHeaders(),
             });
 
             if (!response.ok) {
-                // Obsługa błędu np. gdy próbujesz usunąć systemowy (choć UI to blokuje)
                 const errorData = await response.json();
-                alert(errorData.message || 'Błąd usuwania');
+                alert(errorData.message || 'Error while removing dictionary entry');
                 return;
             }
 
-            // Po udanym usunięciu odświeżamy listę
             await fetchCoats();
         } catch (err) {
             console.error(err);
-            alert('Nie udało się usunąć maści');
+            alert('Cannot remove dictionary (coats), id=' + id);
         }
     };
 
     if (isLoading && coatColors.length === 0) {
-        return <Box sx={{ p: 3 }}>Ładowanie danych...</Box>;
+        return <Box sx={{ p: 3 }}>Loading data...</Box>;
     }
 
     if (error) {
@@ -115,20 +104,11 @@ export function DefinesSettingsTab() {
     return (
         <Box sx={{ p: 2 }}>
             <DictionaryEditor
-                title='Maści koni (Horse Coats)'
+                title='Horse Coats'
                 items={coatColors}
                 onAdd={handleAddCoat}
                 onDelete={handleDeleteCoat}
             />
-
-            {/* Tutaj możesz dodać kolejne DictionaryEditor dla innych kategorii, np. Rasy */}
-            {/* <Box sx={{ mt: 4 }}>
-                <DictionaryEditor 
-                    title="Rasy koni" 
-                    items={breeds} 
-                    onAdd={handleAddBreed} ... 
-                />
-            </Box> */}
         </Box>
     );
 }

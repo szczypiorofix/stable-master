@@ -4,7 +4,7 @@ import { DictionaryCategory } from '../dictionary/dictionary-category.enum';
 
 import { StableEntity } from './stable.entity';
 
-@Entity()
+@Entity('dictionaryentry')
 export class DictionaryEntry {
     @PrimaryGeneratedColumn()
     id: number;
