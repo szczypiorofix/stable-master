@@ -42,6 +42,12 @@ const environments: Record<DATA_SOURCE, EnvironmentScheme> = {
     },
 };
 
-export function getEnvironmentDetails(environment: DATA_SOURCE): EnvironmentScheme {
+function getEnvironmentDetails(environment: DATA_SOURCE): EnvironmentScheme {
     return environments[environment];
+}
+
+const selectedEnvironment: DATA_SOURCE = DATA_SOURCE.LOCALHOST;
+
+export function getBaseUrl(): string {
+    return getEnvironmentDetails(selectedEnvironment).url;
 }

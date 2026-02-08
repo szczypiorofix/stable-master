@@ -1,10 +1,10 @@
 import React, { SyntheticEvent, useState } from 'react';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
 import { CustomTabsProps } from './CustomTabs.types.ts';
-import { Typography } from '@mui/material';
 
 interface TabPanelProps {
     children?: React.ReactNode;

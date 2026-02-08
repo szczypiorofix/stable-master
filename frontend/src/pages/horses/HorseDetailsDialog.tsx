@@ -26,7 +26,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { Horse } from '../../@types';
 import { DictionarySelect } from '../../components/select/DictionarySelect.tsx';
-import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
+import { getBaseUrl } from '../../config/Environment.config.ts';
 import { HORSE_SEX } from '../../shared/enums';
 import { getListOfHorseSexes } from '../../shared/helpers';
 
@@ -45,7 +45,7 @@ export interface HorseDetailsDialogProps {
 }
 
 export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
-    const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
+    const apiUrl = getBaseUrl();
     const [horse, setHorse] = useState<Horse>({
         sex: HORSE_SEX.MARE,
         farrierVisits: [],

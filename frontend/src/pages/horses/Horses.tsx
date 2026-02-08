@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import { Horse } from '../../@types';
 import { HorseCard } from '../../components/card/HorseCard.tsx';
-import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
+import { getBaseUrl } from '../../config/Environment.config.ts';
 
 import { HorseDetailsDialog } from './HorseDetailsDialog.tsx';
 
@@ -24,7 +24,7 @@ export function Horses(): JSX.Element {
     const [addHorse, setAddHorse] = useState(false);
     const [horses, setHorses] = useState<Horse[]>([]);
 
-    const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
+    const apiUrl = getBaseUrl();
 
     const fetchHorses = async () => {
         try {

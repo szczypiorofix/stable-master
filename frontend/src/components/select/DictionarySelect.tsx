@@ -9,7 +9,7 @@ import {
     SelectChangeEvent,
 } from '@mui/material';
 
-import { DATA_SOURCE, getEnvironmentDetails } from '../../config/Environment.config.ts';
+import { getBaseUrl } from '../../config/Environment.config.ts';
 import { DictionaryEntry } from '../../shared/models';
 
 interface DictionarySelectProps {
@@ -35,7 +35,7 @@ export function DictionarySelect({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const apiUrl = getEnvironmentDetails(DATA_SOURCE.LOCALHOST).url;
+    const apiUrl = getBaseUrl();
 
     useEffect(() => {
         let isMounted = true;
