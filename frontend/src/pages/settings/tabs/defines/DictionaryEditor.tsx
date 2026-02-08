@@ -22,7 +22,7 @@ interface DictionaryEntry {
 }
 
 interface DictionaryEditorProps {
-    title: string;
+    title?: string;
     items: DictionaryEntry[];
     onAdd: (label: string) => void;
     onDelete: (id: number) => void;
@@ -40,10 +40,11 @@ export function DictionaryEditor({ title, items, onAdd, onDelete }: DictionaryEd
 
     return (
         <Box sx={{ maxWidth: 600 }}>
-            <Typography variant='h6' gutterBottom>
-                {title}
-            </Typography>
-
+            {title && (
+                <Typography variant='h6' gutterBottom>
+                    {title}
+                </Typography>
+            )}
             <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
                 <TextField
                     label='New value'
