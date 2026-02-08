@@ -20,7 +20,7 @@ export function DefinesSettingsTab() {
     const [error, setError] = useState<string | null>(null);
 
     const getAuthHeaders = () => {
-        const token = localStorage.getItem('jwt_token');
+        // const token = localStorage.getItem('jwt_token');
         return {
             'Content-Type': 'application/json',
             // 'Authorization': `Bearer ${token}`,
@@ -37,7 +37,7 @@ export function DefinesSettingsTab() {
 
             if (!response.ok) throw new Error('An error occurred while fetching dictionaries (coats).');
 
-            const data = await response.json();
+            const data = (await response.json()) as DictionaryEntry[];
             setCoatColors(data);
         } catch (err) {
             console.error(err);
@@ -81,7 +81,7 @@ export function DefinesSettingsTab() {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorData = (await response.json()) as Error;
                 alert(errorData.message || 'Error while removing dictionary entry');
                 return;
             }

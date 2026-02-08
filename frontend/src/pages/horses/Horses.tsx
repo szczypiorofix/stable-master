@@ -33,9 +33,6 @@ export function Horses(): JSX.Element {
                 throw new Error('Cannot find horses. Response error.');
             }
             const data: Horse[] = (await response.json()) as Horse[];
-
-            console.log('horses: ', data);
-
             setHorses(data);
         } catch (error) {
             console.error('Response error: ', error);
