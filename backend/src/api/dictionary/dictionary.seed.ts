@@ -22,6 +22,7 @@ export const SYSTEM_DICTIONARIES = [
             'Polski koń szlachetn półkri',
             'Koń andaluzyjski',
             'Shire',
+            'Fiord',
             'Koń ardeński',
             'Koń zimnokrwisty belgijski',
             'Polski koń zimnokrwisty',
