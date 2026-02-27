@@ -20,5 +20,5 @@ export function SettingsTabs() {
             content: <OtherSettingsTab />,
         },
     ];
-    return <CustomTabs title={'Settings'} items={items} />;
+    return <CustomTabs title={''} items={items} />;
 }

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 import { CustomAccordion } from '../../../../components/accordion/CustomAccordion.tsx';
+import { BaseDialog } from '../../../../components/dialog/BaseDialog.tsx';
 import { getBaseUrl } from '../../../../config/Environment.config.ts';
 
 import { DictionaryEditor } from './DictionaryEditor';
@@ -22,6 +24,7 @@ export function DefinesSettingsTab() {
     const [feedTypes, setFeedTypes] = useState<DictionaryEntry[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [confirmDeleteEntryId, setConfirmDeleteEntryId] = useState(0);
 
     const getAuthHeaders = () => {
         // const token = localStorage.getItem('jwt_token');
@@ -31,195 +34,85 @@ export function DefinesSettingsTab() {
         };
     };
 
-    const fetchCoats = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}/dictionary?category=HORSE_COAT`, {
-                method: 'GET',
-                headers: getAuthHeaders(),
-            });
+    const fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
+        const response = await fetch(`${apiUrl}/dictionary?category=${category}`, {
+            method: 'GET',
+            headers: getAuthHeaders(),
+        });
 
-            if (!response.ok) throw new Error('An error occurred while fetching dictionaries (coats).');
-
-            const data = (await response.json()) as DictionaryEntry[];
-            setCoatColors(data);
-        } catch (err) {
-            console.error(err);
-            setError('Cannot get horse coats dictionary');
-        } finally {
-            setIsLoading(false);
+        if (!response.ok) {
+            throw new Error(`An error occurred while fetching dictionaries (${category}).`);
         }
+
+        return (await response.json()) as DictionaryEntry[];
     };
 
-    const fetchBreeds = async () => {
+    const fetchAllDictionaries = async () => {
         setIsLoading(true);
+        setError(null);
+
         try {
-            const response = await fetch(`${apiUrl}/dictionary?category=HORSE_BREED`, {
-                method: 'GET',
-                headers: getAuthHeaders(),
-            });
+            const [coats, breeds, feedTypes] = await Promise.all([
+                fetchDictionaryCategory('HORSE_COAT'),
+                fetchDictionaryCategory('HORSE_BREED'),
+                fetchDictionaryCategory('FEED_TYPE'),
+            ]);
 
-            if (!response.ok) throw new Error('An error occurred while fetching dictionaries (breeds).');
-
-            const data = (await response.json()) as DictionaryEntry[];
-            setHorseBreeds(data);
+            setCoatColors(coats);
+            setHorseBreeds(breeds);
+            setFeedTypes(feedTypes);
         } catch (err) {
             console.error(err);
-            setError('Cannot get horse breeds dictionary');
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const fetchFeedTypes = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch(`${apiUrl}/dictionary?category=FEED_TYPE`, {
-                method: 'GET',
-                headers: getAuthHeaders(),
-            });
-
-            if (!response.ok) throw new Error('An error occurred while fetching dictionaries (feed types).');
-
-            const data = (await response.json()) as DictionaryEntry[];
-            setFeedTypes(data);
-        } catch (err) {
-            console.error(err);
-            setError('Cannot get feed types dictionary');
+            setError('Cannot load dictionaries data. Please try again later.');
         } finally {
             setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchCoats();
-        fetchBreeds();
-        fetchFeedTypes();
+        void fetchAllDictionaries();
     }, []);
 
-    const handleAddCoat = async (label: string) => {
+    const handleAddEntry = async (category: string, label: string) => {
         try {
             const response = await fetch(`${apiUrl}/dictionary`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
-                body: JSON.stringify({
-                    label: label,
-                    category: 'HORSE_COAT',
-                }),
+                body: JSON.stringify({ label, category }),
             });
 
-            if (!response.ok) throw new Error('An error occurred while adding dictionary');
+            if (!response.ok) throw new Error(`An error occurred while adding to ${category}`);
 
-            await fetchCoats();
+            await fetchAllDictionaries();
         } catch (err) {
             console.error(err);
-            alert('Cannot add horse coats dictionary');
+            alert('Cannot add dictionary entry.');
         }
     };
 
-    const handleDeleteCoat = async (id: number) => {
-        if (!window.confirm('Are you sure you want to remove this entry?')) return;
-
+    const handleDeleteEntry = async () => {
+        if (confirmDeleteEntryId <= 0) {
+            return;
+        }
         try {
-            const response = await fetch(`${apiUrl}/dictionary/${id}`, {
+            const response = await fetch(`${apiUrl}/dictionary/${confirmDeleteEntryId}`, {
                 method: 'DELETE',
                 headers: getAuthHeaders(),
             });
 
             if (!response.ok) {
-                const errorData = (await response.json()) as Error;
-                alert(errorData.message || 'Error while removing dictionary entry');
+                const errorData: Error = (await response
+                    .json()
+                    .then()
+                    .catch((err) => console.error(err))) as Error;
+                alert(errorData.message || 'Cannot delete dictionary entry.');
                 return;
             }
 
-            await fetchCoats();
+            await fetchAllDictionaries();
         } catch (err) {
             console.error(err);
-            alert('Cannot remove dictionary (coats), id=' + id);
-        }
-    };
-
-    const handleAddBreed = async (label: string) => {
-        try {
-            const response = await fetch(`${apiUrl}/dictionary`, {
-                method: 'POST',
-                headers: getAuthHeaders(),
-                body: JSON.stringify({
-                    label: label,
-                    category: 'HORSE_BREED',
-                }),
-            });
-
-            if (!response.ok) throw new Error('An error occurred while adding dictionary');
-
-            await fetchCoats();
-        } catch (err) {
-            console.error(err);
-            alert('Cannot add horse coats dictionary');
-        }
-    };
-
-    const handleDeleteBreed = async (id: number) => {
-        if (!window.confirm('Are you sure you want to remove this entry?')) return;
-
-        try {
-            const response = await fetch(`${apiUrl}/dictionary/${id}`, {
-                method: 'DELETE',
-                headers: getAuthHeaders(),
-            });
-
-            if (!response.ok) {
-                const errorData = (await response.json()) as Error;
-                alert(errorData.message || 'Error while removing dictionary entry');
-                return;
-            }
-
-            await fetchCoats();
-        } catch (err) {
-            console.error(err);
-            alert('Cannot remove dictionary (breed), id=' + id);
-        }
-    };
-
-    const handleAddFeedType = async (label: string) => {
-        try {
-            const response = await fetch(`${apiUrl}/dictionary`, {
-                method: 'POST',
-                headers: getAuthHeaders(),
-                body: JSON.stringify({
-                    label: label,
-                    category: 'FEED_TYPE',
-                }),
-            });
-
-            if (!response.ok) throw new Error('An error occurred while adding dictionary');
-
-            await fetchFeedTypes();
-        } catch (err) {
-            console.error(err);
-            alert('Cannot add feed type dictionary');
-        }
-    };
-
-    const handleDeleteFeedType = async (id: number) => {
-        if (!window.confirm('Are you sure you want to remove this entry?')) return;
-
-        try {
-            const response = await fetch(`${apiUrl}/dictionary/${id}`, {
-                method: 'DELETE',
-                headers: getAuthHeaders(),
-            });
-
-            if (!response.ok) {
-                const errorData = (await response.json()) as Error;
-                alert(errorData.message || 'Error while removing dictionary entry');
-                return;
-            }
-
-            await fetchFeedTypes();
-        } catch (err) {
-            console.error(err);
-            alert('Cannot remove dictionary (feed type), id=' + id);
+            alert('Cannot delete dictionary entry.');
         }
     };
 
@@ -231,18 +124,70 @@ export function DefinesSettingsTab() {
         return <Box sx={{ p: 3, color: 'red' }}>{error}</Box>;
     }
 
+    const handleConfirmDelete = () => {
+        handleDeleteEntry()
+            .then(() => console.log('Removing entry finished'))
+            .catch((err) => console.error(err));
+    };
+
+    const showDeleteEntryDialog = () => {
+        return (
+            <BaseDialog
+                open={confirmDeleteEntryId > 0}
+                onClose={() => setConfirmDeleteEntryId(0)}
+                title='Confirming'
+                maxWidth='xs'
+                actions={
+                    <>
+                        <Button onClick={() => setConfirmDeleteEntryId(0)}>No</Button>
+                        <Button variant='contained' color='error' onClick={handleConfirmDelete}>
+                            Yes, delete
+                        </Button>
+                    </>
+                }
+            >
+                <Typography color='error'>Are you sure you want to delete this horse data?</Typography>
+            </BaseDialog>
+        );
+    };
+
     return (
-        <Box sx={{ p: 2 }}>
-            <Typography component='h2'>Defined features</Typography>
+        <Box sx={{ pt: 2, pb: 2 }}>
+            {confirmDeleteEntryId > 0 && showDeleteEntryDialog()}
+            <Typography variant='h4'>Defined features</Typography>
             <Box sx={{ pt: 2, pb: 2 }}>
                 <CustomAccordion index={0} title={'Horse coat'}>
-                    <DictionaryEditor items={coatColors} onAdd={handleAddCoat} onDelete={handleDeleteCoat} />
+                    <DictionaryEditor
+                        items={coatColors}
+                        onAdd={(label: string) => {
+                            handleAddEntry('HORSE_COAT', label)
+                                .then(() => console.log('Handle entry end'))
+                                .catch((err) => console.error(err));
+                        }}
+                        onDelete={(id: number) => setConfirmDeleteEntryId(id)}
+                    />
                 </CustomAccordion>
                 <CustomAccordion index={1} title={'Horse breed'}>
-                    <DictionaryEditor items={horseBreeds} onAdd={handleAddBreed} onDelete={handleDeleteBreed} />
+                    <DictionaryEditor
+                        items={horseBreeds}
+                        onAdd={(label: string) => {
+                            handleAddEntry('HORSE_BREED', label)
+                                .then(() => console.log('Handle entry end'))
+                                .catch((err) => console.error(err));
+                        }}
+                        onDelete={(id: number) => setConfirmDeleteEntryId(id)}
+                    />
                 </CustomAccordion>
                 <CustomAccordion index={1} title={'Feed types'}>
-                    <DictionaryEditor items={feedTypes} onAdd={handleAddFeedType} onDelete={handleDeleteFeedType} />
+                    <DictionaryEditor
+                        items={feedTypes}
+                        onAdd={(label: string) => {
+                            handleAddEntry('FEED_TYPE', label)
+                                .then(() => console.log('Handle entry end'))
+                                .catch((err) => console.error(err));
+                        }}
+                        onDelete={(id: number) => setConfirmDeleteEntryId(id)}
+                    />
                 </CustomAccordion>
             </Box>
         </Box>

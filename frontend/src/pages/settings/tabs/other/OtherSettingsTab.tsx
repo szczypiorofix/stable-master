@@ -1,9 +1,10 @@
 import { JSX } from 'react';
+import { Box, Typography } from '@mui/material';
 
 export function OtherSettingsTab(): JSX.Element {
     return (
-        <div>
-            <h1>Other settings</h1>
-        </div>
+        <Box sx={{ p: 2 }}>
+            <Typography variant='h4'>Other settings</Typography>
+        </Box>
     );
 }

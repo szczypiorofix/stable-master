@@ -67,9 +67,7 @@ export function SettingsSaveDialog() {
                 }
             >
                 {/* HERE TO INJECT SIMPLE TEXT */}
-                <Typography color='error'>
-                    Are you sure to remove this horse ?
-                </Typography>
+                <Typography color='error'>Are you sure to remove this horse ?</Typography>
             </BaseDialog>
         </div>
     );

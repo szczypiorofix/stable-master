@@ -71,9 +71,9 @@ export class DictionaryService implements OnModuleInit {
 
     async remove(id: number, stableId: number) {
         const entry = await this.repo.findOne({ where: { id } });
-
+        console.log('Removing entry with id', id);
         if (!entry) {
-            throw new NotFoundException('DDictionary entry not found');
+            throw new NotFoundException('Dictionary entry not found');
         }
 
         if (entry.isSystem) {
