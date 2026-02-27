@@ -28,4 +28,18 @@ export const SYSTEM_DICTIONARIES = [
             'Polski koń zimnokrwisty',
         ],
     },
+    {
+        category: DictionaryCategory.FEED_TYPE,
+        items: [
+            'Pasza pełnoporcjowa',
+            'Mieszanka uzupełniająca',
+            'Siano',
+            'Sieczka',
+            'Mesz',
+            'Dodatki i Suplementy',
+            'Słoma',
+            'Gnieciony owies',
+            'Gnieciony jęczmień',
+        ],
+    },
 ];
