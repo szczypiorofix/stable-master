@@ -24,7 +24,7 @@ export const SYSTEM_DICTIONARIES = [
             'Shire',
             'Koń ardeński',
             'Koń zimnokrwisty belgijski',
-            'Polski koń zimnokrwistyD',
+            'Polski koń zimnokrwisty',
         ],
     },
 ];
