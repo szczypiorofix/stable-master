@@ -61,6 +61,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
         name: '',
         id: 0,
     });
+
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleInputChange = <K extends keyof Horse>(key: K, value: Horse[K]) => {
@@ -201,7 +202,7 @@ export function HorseDetailsDialog(props: HorseDetailsDialogProps) {
 
                     <Box mt={2} mb={2}>
                         <Button component='label' variant='outlined'>
-                            Set awatar
+                            Set avatar
                             <input
                                 type='file'
                                 hidden

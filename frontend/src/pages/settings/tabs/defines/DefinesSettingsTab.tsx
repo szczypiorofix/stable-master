@@ -8,6 +8,7 @@ import { BaseDialog } from '../../../../components/dialog/BaseDialog.tsx';
 import { getBaseUrl } from '../../../../config/Environment.config.ts';
 
 import { DictionaryEditor } from './DictionaryEditor';
+import { getAuthHeaders } from '../../../../shared/helpers';
 
 const apiUrl = getBaseUrl();
 
@@ -26,15 +27,7 @@ export function DefinesSettingsTab() {
     const [error, setError] = useState<string | null>(null);
     const [confirmDeleteEntryId, setConfirmDeleteEntryId] = useState(0);
 
-    const getAuthHeaders = () => {
-        const token = localStorage.getItem('jwt_token');
-        return {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        };
-    };
-
-    const   fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
+    const fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
         const authHeaders = getAuthHeaders();
         const response = await fetch(`${apiUrl}/dictionary?category=${category}`, {
             method: 'GET',
