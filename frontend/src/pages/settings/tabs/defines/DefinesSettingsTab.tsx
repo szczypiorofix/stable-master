@@ -34,7 +34,7 @@ export function DefinesSettingsTab() {
         };
     };
 
-    const fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
+    const   fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
         const authHeaders = getAuthHeaders();
         const response = await fetch(`${apiUrl}/dictionary?category=${category}`, {
             method: 'GET',
@@ -42,6 +42,10 @@ export function DefinesSettingsTab() {
         });
 
         if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.reload();
+            }
             throw new Error(`An error occurred while fetching dictionaries (${category}).`);
         }
 
