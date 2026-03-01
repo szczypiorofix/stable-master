@@ -1,6 +1,6 @@
 import { JSX, useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Fab, Paper, Stack } from '@mui/material';
+import { Box, Fab, Paper, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -58,7 +58,10 @@ export function Horses(): JSX.Element {
     }, []);
 
     return (
-        <Box>
+        <Box pt={2} pb={2}>
+            <Typography variant='h4' component={'h2'}>
+                Horses list
+            </Typography>
             {addHorse && <HorseDetailsDialog open={addHorse} onClose={handleAddHorse} />}
             <Stack direction='row' spacing={5} mt={2} justifyContent={'space-between'}>
                 {horses.map((value, index) => {

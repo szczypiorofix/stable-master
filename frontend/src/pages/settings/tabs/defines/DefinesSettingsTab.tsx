@@ -162,7 +162,9 @@ export function DefinesSettingsTab() {
     return (
         <Box sx={{ pt: 2, pb: 2 }}>
             {confirmDeleteEntryId > 0 && showDeleteEntryDialog()}
-            <Typography variant='h4'>Defined features</Typography>
+            <Typography variant='h4' component={'h2'}>
+                Defined features
+            </Typography>
             <Box sx={{ pt: 2, pb: 2 }}>
                 <CustomAccordion index={0} title={'Horse coat'}>
                     <DictionaryEditor

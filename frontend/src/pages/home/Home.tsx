@@ -9,7 +9,7 @@ export function Home(): JSX.Element {
     const stable = stables[0]; // Assuming you want to display the first stable
 
     return (
-        <Box pt={2}>
+        <Box pt={2} pb={2}>
             <Paper elevation={1}>
                 <Card sx={{ padding: 1 }}>
                     <CardMedia component='img' height='340' image={stable.logo} alt={stable.name} />
