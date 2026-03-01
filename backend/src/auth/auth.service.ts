@@ -32,6 +32,10 @@ export class AuthService {
             throw new UnauthorizedException('Wrong email and/or password');
         }
 
+        await this.userRepository.update(user.id, {
+            lastlogin: new Date(),
+        });
+
         const payload = {
             sub: user.id,
             email: user.email,
