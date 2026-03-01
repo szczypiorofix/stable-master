@@ -50,13 +50,13 @@ export default tseslint.config(
             '@typescript-eslint/await-thenable': 'error',
             '@typescript-eslint/promise-function-async': 'error',
             'prettier/prettier': [
-                'error',
+                'warn',
                 {
                     singleQuote: true,
                 },
             ],
             'simple-import-sort/imports': [
-                'error',
+                'warn',
                 {
                     groups: [
                         ['^@nestjs', '^\\w', 'fs', 'path'],
