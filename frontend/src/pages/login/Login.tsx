@@ -5,6 +5,10 @@ import { getBaseUrl } from '../../config/Environment.config.ts';
 import { useGlobalAppContext } from '../../context/AppContext.tsx';
 import { APP_VIEW } from '../../shared/enums';
 
+interface LoginSuccessResponse {
+    access_token: string;
+}
+
 export function Login() {
     const apiUrl = getBaseUrl();
 
@@ -31,21 +35,21 @@ export function Login() {
 
             if (!response.ok) {
                 if (response.status === 401 || response.status === 403) {
-                    throw new Error('Nieprawidłowy email lub hasło.');
+                    throw new Error('Wrong email and/or password.');
                 }
-                throw new Error('Wystąpił problem z połączeniem z serwerem.');
+                throw new Error('An error occurred while trying to log in.');
             }
 
-            const data = await response.json();
+            const data: LoginSuccessResponse = (await response.json()) as LoginSuccessResponse;
+            if (!data || !data.access_token) {
+                console.error('Wrong server response');
+                setError('Wrong server response');
+                return;
+            }
 
-            // 1. Zapisujemy token JWT w przeglądarce
             localStorage.setItem('jwt_token', data.access_token);
 
-            // 2. Przekierowujemy użytkownika do aplikacji
-            // Użyj swojej logiki nawigacji (Context lub React Router)
-            // setAppView(APP_VIEW.HOME);
-
-            console.log('Zalogowano pomyślnie!');
+            console.log('Login successfull!');
             setContextState({
                 ...contextState,
                 isUserLoggedIn: true,
@@ -53,7 +57,11 @@ export function Login() {
             });
         } catch (err: unknown) {
             console.error(err);
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError(JSON.stringify(err));
+            }
         } finally {
             setIsLoading(false);
         }
@@ -84,7 +92,15 @@ export function Login() {
                         </Alert>
                     )}
 
-                    <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box
+                        component='form'
+                        onSubmit={(event) => {
+                            handleSubmit(event)
+                                .then(() => console.log('Login action finished'))
+                                .catch((err) => console.log(err));
+                        }}
+                        sx={{ mt: 1 }}
+                    >
                         <TextField
                             margin='normal'
                             required
