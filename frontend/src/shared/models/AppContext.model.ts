@@ -1,6 +1,7 @@
 import { APP_VIEW } from '../enums';
 
 export interface AppStateModel {
+    isUserLoggedIn: boolean;
     isSideNavOpen: boolean;
     view: APP_VIEW;
     stableName: string;

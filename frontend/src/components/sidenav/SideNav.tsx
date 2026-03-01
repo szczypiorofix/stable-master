@@ -41,14 +41,20 @@ export function SideNav(): JSX.Element {
                 </CardActionArea>
             </Card>
             <Box sx={{ width: 260 }}></Box>
-            {getAllRoutesAsList().map((route, index) => (
-                <ListItem key={index} disablePadding>
-                    <ListItemButton selected={route.view === contextState.view} onClick={() => changeView(route)}>
-                        <ListItemIcon>{route.icon}</ListItemIcon>
-                        <ListItemText primary={route.name} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
+            {getAllRoutesAsList().map((route, index) => {
+                if (!route.visibleInSidebar) {
+                    return;
+                }
+
+                return (
+                    <ListItem key={index} disablePadding>
+                        <ListItemButton selected={route.view === contextState.view} onClick={() => changeView(route)}>
+                            <ListItemIcon>{route.icon}</ListItemIcon>
+                            <ListItemText primary={route.name} />
+                        </ListItemButton>
+                    </ListItem>
+                );
+            })}
             <Divider />
         </Box>
     );

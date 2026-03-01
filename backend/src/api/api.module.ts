@@ -4,6 +4,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
+import { AuthModule } from '../auth/auth.module.';
 import databaseRegisteredConfig, { DatabaseConfig, defaultDatabaseConfig } from '../config/database.config';
 import { HeaderMiddleware } from '../middleware/header.middleware';
 import { LoggerMiddleware } from '../middleware/logger.middleware';
@@ -34,7 +35,7 @@ import { ApiService } from './api.service';
                     database: dbConfig.database,
                     entities: allEntities,
                     synchronize: true,
-                    logging: true,
+                    logging: false,
                     logger: 'advanced-console',
                 };
             },
@@ -45,6 +46,7 @@ import { ApiService } from './api.service';
         }),
         HorseModule,
         DictionaryModule,
+        AuthModule,
     ],
     controllers: [ApiController],
     providers: [ApiService],

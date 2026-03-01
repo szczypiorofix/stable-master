@@ -27,17 +27,18 @@ export function DefinesSettingsTab() {
     const [confirmDeleteEntryId, setConfirmDeleteEntryId] = useState(0);
 
     const getAuthHeaders = () => {
-        // const token = localStorage.getItem('jwt_token');
+        const token = localStorage.getItem('jwt_token');
         return {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
         };
     };
 
     const fetchDictionaryCategory = async (category: string): Promise<DictionaryEntry[]> => {
+        const authHeaders = getAuthHeaders();
         const response = await fetch(`${apiUrl}/dictionary?category=${category}`, {
             method: 'GET',
-            headers: getAuthHeaders(),
+            headers: authHeaders,
         });
 
         if (!response.ok) {
@@ -126,7 +127,10 @@ export function DefinesSettingsTab() {
 
     const handleConfirmDelete = () => {
         handleDeleteEntry()
-            .then(() => console.log('Removing entry finished'))
+            .then(() => {
+                console.log('Removing entry finished');
+                setConfirmDeleteEntryId(0);
+            })
             .catch((err) => console.error(err));
     };
 

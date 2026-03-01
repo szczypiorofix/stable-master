@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
 
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { DictionaryCategory } from '../../dictionary/dictionary-category.enum';
 import { User } from '../../shared/decorators/user.decorator';
 import { DictionaryEntry } from '../../typeorm';
@@ -8,6 +9,7 @@ import { CreateDictionaryEntryDto } from './create-dictionary.dto';
 import { DictionaryService } from './dictionary.service';
 
 @Controller('dictionary')
+@UseGuards(JwtAuthGuard)
 export class DictionaryController {
     constructor(private readonly dictionaryService: DictionaryService) {}
 

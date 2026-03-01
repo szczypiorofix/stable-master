@@ -7,4 +7,5 @@ export interface RouteModel {
     view: APP_VIEW;
     page: JSX.Element;
     icon: JSX.Element;
+    visibleInSidebar: boolean;
 }
