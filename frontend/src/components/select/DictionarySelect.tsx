@@ -70,7 +70,7 @@ export function DictionarySelect({
         return () => {
             isMounted = false;
         };
-    }, [category, apiUrl]);
+    }, [category]);
 
     return (
         <FormControl fullWidth margin='dense' error={error} disabled={disabled || loading}>
