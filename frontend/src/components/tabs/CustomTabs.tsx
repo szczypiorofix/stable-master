@@ -44,7 +44,7 @@ export function CustomTabs(props: CustomTabsProps) {
                     {props.items.map((item, index) => (
                         <Tab
                             key={'tab' + index}
-                            label={item.title}
+                            label={item.title.toUpperCase()}
                             id={`simple-tab-${index}`}
                             aria-controls={`simple-tabpanel-${index}`}
                         />
