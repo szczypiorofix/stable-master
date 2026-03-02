@@ -18,9 +18,7 @@ export class HorseController {
      */
     @Get()
     async findAll(): Promise<HorseEntity[]> {
-        const allHorses: HorseEntity[] = await this.horseService.findAll();
-        console.log(allHorses);
-        return allHorses;
+        return this.horseService.findAll();
     }
 
     /**

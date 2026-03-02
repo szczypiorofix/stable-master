@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 
 import { getBaseUrl } from '../../config/Environment.config.ts';
+import { getAuthHeaders } from '../../shared/helpers';
 import { DictionaryEntry } from '../../shared/models';
 
 interface DictionarySelectProps {
@@ -40,12 +41,15 @@ export function DictionarySelect({
     useEffect(() => {
         let isMounted = true;
         setLoading(true);
-
-        fetch(`${apiUrl}/dictionary?category=${category}`)
+        const authHeaders = getAuthHeaders();
+        const options = {
+            method: 'GET',
+            headers: authHeaders,
+        };
+        fetch(`${apiUrl}/dictionary?category=${category}`, options)
             .then(async (res) => {
                 if (!res.ok) throw new Error('Network response was not ok');
-                const v = (await res.json()) as unknown;
-                return v;
+                return (await res.json()) as unknown;
             })
             .then((data) => {
                 if (isMounted) {
