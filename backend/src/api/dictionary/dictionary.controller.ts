@@ -18,7 +18,6 @@ export class DictionaryController {
         @Query('category') category: DictionaryCategory,
         @User('stableId') stableId: number,
     ): Promise<DictionaryEntry[]> {
-        console.log(`Get all dictionary for ${category}`);
         return this.dictionaryService.findAll(category, stableId);
     }
 
