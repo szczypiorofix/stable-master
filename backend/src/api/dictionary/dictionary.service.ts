@@ -14,7 +14,7 @@ export class DictionaryService implements OnModuleInit {
 
     constructor(
         @InjectRepository(DictionaryEntry)
-        private repo: Repository<DictionaryEntry>,
+        private repository: Repository<DictionaryEntry>,
     ) {}
 
     async onModuleInit() {
@@ -26,7 +26,7 @@ export class DictionaryService implements OnModuleInit {
 
         for (const group of SYSTEM_DICTIONARIES) {
             for (const label of group.items) {
-                const exists = await this.repo.findOne({
+                const exists = await this.repository.findOne({
                     where: {
                         category: group.category,
                         label: label,
@@ -35,7 +35,7 @@ export class DictionaryService implements OnModuleInit {
                 });
 
                 if (!exists) {
-                    await this.repo.save({
+                    await this.repository.save({
                         category: group.category,
                         label: label,
                         isSystem: true,
@@ -48,7 +48,7 @@ export class DictionaryService implements OnModuleInit {
     }
 
     async findAll(category: DictionaryCategory, stableId: number) {
-        return this.repo.find({
+        return this.repository.find({
             where: [
                 { category, isSystem: true },
                 { category, stableId: stableId },
@@ -61,16 +61,16 @@ export class DictionaryService implements OnModuleInit {
     }
 
     async create(createDto: CreateDictionaryEntryDto, stableId: number) {
-        const newEntry = this.repo.create({
+        const newEntry = this.repository.create({
             ...createDto,
             stableId,
             isSystem: false,
         });
-        return this.repo.save(newEntry);
+        return this.repository.save(newEntry);
     }
 
     async remove(id: number, stableId: number) {
-        const entry = await this.repo.findOne({ where: { id } });
+        const entry = await this.repository.findOne({ where: { id } });
         console.log('Removing entry with id', id);
         if (!entry) {
             throw new NotFoundException('Dictionary entry not found');
@@ -84,6 +84,6 @@ export class DictionaryService implements OnModuleInit {
             throw new ForbiddenException('You do not have permission to delete system dictionary entry.');
         }
 
-        return this.repo.remove(entry);
+        return this.repository.remove(entry);
     }
 }

@@ -23,6 +23,9 @@ export function DefinesSettingsTab() {
     const [coatColors, setCoatColors] = useState<DictionaryEntry[]>([]);
     const [horseBreeds, setHorseBreeds] = useState<DictionaryEntry[]>([]);
     const [feedTypes, setFeedTypes] = useState<DictionaryEntry[]>([]);
+    const [stableFacilities, setStableFacilities] = useState<DictionaryEntry[]>([]);
+    const [stableServices, setStableServices] = useState<DictionaryEntry[]>([]);
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [confirmDeleteEntryId, setConfirmDeleteEntryId] = useState(0);
@@ -50,15 +53,19 @@ export function DefinesSettingsTab() {
         setError(null);
 
         try {
-            const [coats, breeds, feedTypes] = await Promise.all([
+            const [coats, breeds, feedTypes, facilities, services] = await Promise.all([
                 fetchDictionaryCategory('HORSE_COAT'),
                 fetchDictionaryCategory('HORSE_BREED'),
                 fetchDictionaryCategory('FEED_TYPE'),
+                fetchDictionaryCategory('STABLE_FACILITY'),
+                fetchDictionaryCategory('STABLE_SERVICE'),
             ]);
 
             setCoatColors(coats);
             setHorseBreeds(breeds);
             setFeedTypes(feedTypes);
+            setStableFacilities(facilities);
+            setStableServices(services);
         } catch (err) {
             console.error(err);
             setError('Cannot load dictionaries data. Please try again later.');
@@ -181,11 +188,33 @@ export function DefinesSettingsTab() {
                         onDelete={(id: number) => setConfirmDeleteEntryId(id)}
                     />
                 </CustomAccordion>
-                <CustomAccordion index={1} title={'Feed types'}>
+                <CustomAccordion index={2} title={'Feed types'}>
                     <DictionaryEditor
                         items={feedTypes}
                         onAdd={(label: string) => {
                             handleAddEntry('FEED_TYPE', label)
+                                .then(() => console.log('Handle entry end'))
+                                .catch((err) => console.error(err));
+                        }}
+                        onDelete={(id: number) => setConfirmDeleteEntryId(id)}
+                    />
+                </CustomAccordion>
+                <CustomAccordion index={3} title={'Stable facilities'}>
+                    <DictionaryEditor
+                        items={stableFacilities}
+                        onAdd={(label: string) => {
+                            handleAddEntry('STABLE_FACILITY', label)
+                                .then(() => console.log('Handle entry end'))
+                                .catch((err) => console.error(err));
+                        }}
+                        onDelete={(id: number) => setConfirmDeleteEntryId(id)}
+                    />
+                </CustomAccordion>
+                <CustomAccordion index={4} title={'Stable services'}>
+                    <DictionaryEditor
+                        items={stableServices}
+                        onAdd={(label: string) => {
+                            handleAddEntry('STABLE_SERVICES', label)
                                 .then(() => console.log('Handle entry end'))
                                 .catch((err) => console.error(err));
                         }}

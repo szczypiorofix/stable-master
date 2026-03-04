@@ -42,4 +42,19 @@ export const SYSTEM_DICTIONARIES = [
             'Gnieciony jęczmień',
         ],
     },
+    {
+        category: DictionaryCategory.STABLE_FACILITY,
+        items: [
+            'Arena',
+            'Round pen (Lonżownik)',
+            'Wash rack (Myjka)',
+            'Tack room (Siodlarnia)',
+            'Paddock (Padok)',
+            'Indoor arena (Hala)',
+        ],
+    },
+    {
+        category: DictionaryCategory.STABLE_SERVICE,
+        items: ['Boarding (Pensjonat)', 'Training (Trening koni)', 'Lessons (Jazdy)', 'Farrier (Kowal na miejscu)'],
+    },
 ];
