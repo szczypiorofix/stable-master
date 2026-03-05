@@ -12,6 +12,7 @@ import { allEntities } from '../typeorm';
 
 import { DictionaryModule } from './dictionary/dictionary.module';
 import { HorseModule } from './horse/horse.module';
+import { StableModule } from './stable/stable.module';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
 
@@ -45,6 +46,7 @@ import { ApiService } from './api.service';
             serveRoot: '/public',
         }),
         HorseModule,
+        StableModule,
         DictionaryModule,
         AuthModule,
     ],
