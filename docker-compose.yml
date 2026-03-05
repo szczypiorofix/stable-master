@@ -36,8 +36,6 @@ services:
             - '5173:5173'
         depends_on:
             - backend_app
-        env_file:
-            - frontend/.env
         volumes:
             - frontend-data:/app
         stdin_open: true
