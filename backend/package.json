@@ -1,5 +1,5 @@
 {
-    "name": "stable-master-backend",
+    "name": "backend",
     "private": true,
     "version": "0.0.2",
     "description": "Stable Master server application",
