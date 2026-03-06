@@ -17,7 +17,8 @@
     "private": true,
     "workspaces": [
         "frontend",
-        "backend"
+        "backend",
+        "shared"
     ],
     "scripts": {
         "lint": "eslint .",
