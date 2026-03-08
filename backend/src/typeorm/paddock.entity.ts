@@ -11,7 +11,7 @@ export class PaddockEntity {
     name: string;
 
     @Column()
-    sizeInSquareMeters: number;
+    size_in_square_meters: number;
 
     @Column()
     fenced: boolean;

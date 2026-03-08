@@ -18,7 +18,7 @@ import {
 interface DictionaryEntry {
     id: number;
     label: string;
-    isSystem: boolean;
+    is_system: boolean;
 }
 
 interface DictionaryEditorProps {
@@ -65,7 +65,7 @@ export function DictionaryEditor({ title, items, onAdd, onDelete }: DictionaryEd
                     <ListItem
                         key={item.id}
                         secondaryAction={
-                            item.isSystem ? (
+                            item.is_system ? (
                                 <LockIcon color='disabled' fontSize='small' />
                             ) : (
                                 <IconButton edge='end' aria-label='delete' onClick={() => onDelete(item.id)}>
@@ -77,11 +77,11 @@ export function DictionaryEditor({ title, items, onAdd, onDelete }: DictionaryEd
                         <ListItemText
                             primary={item.label}
                             primaryTypographyProps={{
-                                color: item.isSystem ? 'text.secondary' : 'text.primary',
-                                fontWeight: item.isSystem ? 'normal' : 'medium',
+                                color: item.is_system ? 'text.secondary' : 'text.primary',
+                                fontWeight: item.is_system ? 'normal' : 'medium',
                             }}
                         />
-                        {item.isSystem && (
+                        {item.is_system && (
                             <Chip
                                 label='System'
                                 size='small'

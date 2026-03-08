@@ -2,7 +2,7 @@ import { StableEntity } from '../../typeorm';
 
 export const DEFAULT_STABLE: Partial<StableEntity> = {
     name: 'Dream Valley Stables',
-    stableCode: 'DEFAULT_STABLE',
+    stable_code: 'DEFAULT_STABLE',
     address: '123 Main St',
     phone: '123-456-7890',
     email: 'stable@email',

@@ -25,7 +25,7 @@ export class StableService implements OnModuleInit {
 
         const exists = await this.repository.findOne({
             where: {
-                stableCode: 'DEFAULT_STABLE',
+                stable_code: 'DEFAULT_STABLE',
             },
         });
 

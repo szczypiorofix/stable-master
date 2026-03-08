@@ -30,7 +30,7 @@ export class DictionaryService implements OnModuleInit {
                     where: {
                         category: group.category,
                         label: label,
-                        isSystem: true,
+                        is_system: true,
                     },
                 });
 
@@ -38,8 +38,8 @@ export class DictionaryService implements OnModuleInit {
                     await this.repository.save({
                         category: group.category,
                         label: label,
-                        isSystem: true,
-                        stableId: null,
+                        is_system: true,
+                        stable_id: null,
                     });
                     this.logger.log(`System dictionary entry added: [${group.category}] ${label}`);
                 }
@@ -50,21 +50,21 @@ export class DictionaryService implements OnModuleInit {
     async findAll(category: DictionaryCategory, stableId: number) {
         return this.repository.find({
             where: [
-                { category, isSystem: true },
-                { category, stableId: stableId },
+                { category, is_system: true },
+                { category, stable_id: stableId },
             ],
             order: {
-                isSystem: 'DESC',
+                is_system: 'DESC',
                 label: 'ASC',
             },
         });
     }
 
-    async create(createDto: CreateDictionaryEntryDto, stableId: number) {
+    async create(createDto: CreateDictionaryEntryDto, stable_id: number) {
         const newEntry = this.repository.create({
             ...createDto,
-            stableId,
-            isSystem: false,
+            stable_id,
+            is_system: false,
         });
         return this.repository.save(newEntry);
     }
@@ -76,11 +76,11 @@ export class DictionaryService implements OnModuleInit {
             throw new NotFoundException('Dictionary entry not found');
         }
 
-        if (entry.isSystem) {
+        if (entry.is_system) {
             throw new ForbiddenException('Cannot delete system dictionary entry.');
         }
 
-        if (entry.stableId !== stableId) {
+        if (entry.stable_id !== stableId) {
             throw new ForbiddenException('You do not have permission to delete system dictionary entry.');
         }
 

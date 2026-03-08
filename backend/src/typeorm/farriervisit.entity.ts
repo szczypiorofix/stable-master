@@ -13,9 +13,9 @@ export class FarrierVisitEntity {
     @Column('text')
     notes: string;
 
-    @ManyToOne(() => HorseEntity, (horse) => horse.farrierVisits)
+    @ManyToOne(() => HorseEntity, (horse) => horse.farrier_visits)
     horse: HorseEntity;
 
     @Column()
-    farrierName: string;
+    farrier_name: string;
 }

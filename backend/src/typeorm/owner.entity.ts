@@ -8,10 +8,10 @@ export class OwnerEntity {
     id: number;
 
     @Column()
-    fullName: string;
+    full_name: string;
 
     @Column()
-    phoneNumber: string;
+    phone_number: string;
 
     @Column()
     email: string;

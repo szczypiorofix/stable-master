@@ -14,10 +14,10 @@ export class UserEntity {
     password: string;
 
     @Column({ length: 60 })
-    firstname: string;
+    first_name: string;
 
     @Column({ length: 60 })
-    lastname: string;
+    last_name: string;
 
     @Column({ type: 'tinyint', unsigned: true })
     active: number;
@@ -35,7 +35,7 @@ export class UserEntity {
     register: Date;
 
     @Column({ nullable: true, default: null })
-    lastlogin: Date;
+    last_login: Date;
 
     @ManyToOne(() => StableEntity, (stable) => stable.users)
     stable: StableEntity;

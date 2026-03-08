@@ -49,10 +49,10 @@ export class StableEntity {
     services: DictionaryEntry[];
 
     @Column({ unique: true, length: 30 }) // Unique code for workers invitations?
-    stableCode: string;
+    stable_code: string;
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @OneToMany(() => UserEntity, (user) => user.stable)
     users: UserEntity[];
@@ -61,5 +61,5 @@ export class StableEntity {
     horses: HorseEntity[];
 
     @OneToMany(() => DictionaryEntry, (entry) => entry.stable)
-    dictionaryEntries: DictionaryEntry[];
+    dictionary_entries: DictionaryEntry[];
 }

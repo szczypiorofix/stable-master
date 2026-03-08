@@ -95,7 +95,7 @@ export function DictionarySelect({
                     <MenuItem value={value}>{value}</MenuItem>
                 )}
             </Select>
-            {error && <FormHelperText>Nie udało się pobrać listy.</FormHelperText>}
+            {error && <FormHelperText>Cannot retrieve list data.</FormHelperText>}
         </FormControl>
     );
 }

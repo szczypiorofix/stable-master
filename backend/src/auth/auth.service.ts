@@ -33,7 +33,7 @@ export class AuthService {
         }
 
         await this.userRepository.update(user.id, {
-            lastlogin: new Date(),
+            last_login: new Date(),
         });
 
         const payload = {

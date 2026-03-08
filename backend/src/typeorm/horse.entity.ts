@@ -26,7 +26,7 @@ export class HorseEntity {
     breed: string;
 
     @Column()
-    birthdate: Date;
+    birth_date: Date;
 
     @Column()
     coat: string;
@@ -47,10 +47,10 @@ export class HorseEntity {
     owner: OwnerEntity;
 
     @OneToMany(() => VetVisitEntity, (visit) => visit.horse)
-    vetVisits: VetVisitEntity[];
+    vet_visits: VetVisitEntity[];
 
     @OneToMany(() => FarrierVisitEntity, (visit) => visit.horse)
-    farrierVisits: FarrierVisitEntity[];
+    farrier_visits: FarrierVisitEntity[];
 
     @ManyToOne(() => StableEntity, (stable) => stable.users)
     stable: StableEntity;

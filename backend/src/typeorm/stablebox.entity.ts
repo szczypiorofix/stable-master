@@ -8,13 +8,13 @@ export class StableBoxEntity {
     id: number;
 
     @Column()
-    boxNumber: string;
+    box_number: string;
 
     @Column()
     size: string;
 
     @Column()
-    isOccupied: boolean;
+    is_occupied: boolean;
 
     @OneToOne(() => HorseEntity, { nullable: true })
     @JoinColumn()

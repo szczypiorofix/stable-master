@@ -19,12 +19,12 @@ export class DictionaryEntry {
     label: string;
 
     @Column({ default: false })
-    isSystem: boolean; // true for everyone, cannot be deleted
+    is_system: boolean; // true for everyone, cannot be deleted
 
     @Column({ nullable: true })
-    stableId: number | null; // NULL for system, ID for private
+    stable_id: number | null; // NULL for system, ID for private
 
     @ManyToOne(() => StableEntity, { nullable: true, onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'stableId' })
+    @JoinColumn({ name: 'stable_id' })
     stable: StableEntity;
 }

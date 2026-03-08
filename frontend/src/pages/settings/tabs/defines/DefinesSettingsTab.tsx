@@ -6,16 +6,16 @@ import Button from '@mui/material/Button';
 import { CustomAccordion } from '../../../../components/accordion/CustomAccordion.tsx';
 import { BaseDialog } from '../../../../components/dialog/BaseDialog.tsx';
 import { getBaseUrl } from '../../../../config/Environment.config.ts';
+import { getAuthHeaders } from '../../../../shared/helpers';
 
 import { DictionaryEditor } from './DictionaryEditor';
-import { getAuthHeaders } from '../../../../shared/helpers';
 
 const apiUrl = getBaseUrl();
 
 interface DictionaryEntry {
     id: number;
     label: string;
-    isSystem: boolean;
+    is_system: boolean;
     category: string;
 }
 
