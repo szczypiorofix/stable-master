@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.fontFamily":  "Noto Sans Mono",
+		"editor.fontSize": 13,
+		"editor.fontWeight": "normal",
+		"editor.cursorBlinking": "phase",
+		"editor.cursorWidth": 8,
+		"editor.cursorHeight": 18,
+	}
+}
