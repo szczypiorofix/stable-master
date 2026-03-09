@@ -4,7 +4,7 @@ import { DictionaryEntry } from './dictionary-entry.entity';
 import { HorseEntity } from './horse.entity';
 import { UserEntity } from './user.entity';
 
-@Entity({ name: 'stable' })
+@Entity({ name: 'stables' })
 export class StableEntity {
     @PrimaryGeneratedColumn()
     id: number;
